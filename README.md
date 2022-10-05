@@ -1,4 +1,4 @@
-# Experiments in Elementary Audio
+# el-vis
 
 [Live Demo] (https://blechdom.github.io/elementary)
 

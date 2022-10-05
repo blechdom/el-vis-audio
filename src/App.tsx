@@ -19,7 +19,7 @@ const App: React.FC<ElementaryPageProps> = ({ audioContext, core }) => {
       <Nav>
         <ul id="navigation">
           <li>
-            <Title>Experiments in Elementary Audio</Title>
+            <Title>el-vis</Title>
           </li>
           <li>
             <Link to="/">[Recursive FM]</Link>
