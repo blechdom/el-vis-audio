@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ElementaryPageProps } from "../App";
 import Slider from "../components/Slider";
 import Page from "../components/Page";
-import AudioVisualiser from "../components/AudioVisualiser";
+import Oscilloscope from "../components/Oscilloscope";
 import Spectrogram from "../components/Spectrogram";
 require("events").EventEmitter.defaultMaxListeners = 0;
 
@@ -134,9 +134,9 @@ const ShepardRissetGlissando: React.FC<ElementaryPageProps> = ({
       <PlayButton onClick={togglePlay}>
         <h2> {playing ? " Pause " : " Play "} </h2>
       </PlayButton>
-      <Oscilloscope>
-        <AudioVisualiser audioVizData={audioVizData} color="#1976d2" />
-      </Oscilloscope>
+      <OscilloscopeContainer>
+        <Oscilloscope audioVizData={audioVizData} color="#1976d2" />
+      </OscilloscopeContainer>
       <Oscilloscope>
         <Spectrogram audioVizData={fftVizData} color="#1976d2" />
       </Oscilloscope>
@@ -227,7 +227,7 @@ const SliderLabel = styled.span`
   text-align: left;
 `;
 
-const Oscilloscope = styled.div`
+const OscilloscopeContainer = styled.div`
   width: 512px;
   height: 100px;
 `;

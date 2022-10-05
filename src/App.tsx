@@ -2,14 +2,11 @@ import { Route, Routes, Link } from "react-router-dom";
 import styled from "styled-components";
 import WebRenderer from "@elemaudio/web-renderer";
 import About from "./pages/About";
-import Counter from "./pages/Counter";
 import IFSystem from "./pages/IFSystem";
 import LSystem from "./pages/LSystem";
 import RecursiveFM from "./pages/RecursiveFM";
-import RecursiveAM from "./pages/RecursiveAM";
 import Spirals from "./pages/Spirals";
 import ShepardRissetGlissando from "./pages/ShepardRissetGlissando";
-import ShepardRissetGlissando2 from "./pages/ShepardRissetGlissando2";
 
 export type ElementaryPageProps = {
   audioContext: AudioContext;
@@ -60,27 +57,13 @@ const App: React.FC<ElementaryPageProps> = ({ audioContext, core }) => {
           element={<IFSystem audioContext={audioContext} core={core} />}
         />
         <Route
-          path="/counter"
-          element={<Counter audioContext={audioContext} core={core} />}
-        />
-        <Route
           path="/lsystem"
           element={<LSystem audioContext={audioContext} core={core} />}
-        />
-        <Route
-          path="/recursiveam"
-          element={<RecursiveAM audioContext={audioContext} core={core} />}
-        />
+        />{" "}
         <Route
           path="/shepard-risset-glissando"
           element={
             <ShepardRissetGlissando audioContext={audioContext} core={core} />
-          }
-        />
-        <Route
-          path="/shepard-risset-glissando-2"
-          element={
-            <ShepardRissetGlissando2 audioContext={audioContext} core={core} />
           }
         />
         <Route path="/about" element={<About />} />
