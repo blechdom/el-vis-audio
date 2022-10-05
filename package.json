@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -o docs-build -s ./stories/assets"
+    "build-storybook": "build-storybook -o docs-build -s ./src/stories/assets/"
   },
   "eslintConfig": {
     "extends": [
