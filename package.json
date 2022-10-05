@@ -1,7 +1,7 @@
 {
-  "name": "elementary",
+  "name": "el-vis",
   "version": "0.1.0",
-  "homepage": "https://blechdom.github.io/elementary/",
+  "homepage": "https://blechdom.github.io/el-vis/",
   "private": true,
   "dependencies": {
     "@elemaudio/compressor": "^1.0.2",
