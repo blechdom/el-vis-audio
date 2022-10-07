@@ -1,8 +1,7 @@
 {
-  "name": "el-vis",
+  "name": "el-vis-audio",
   "version": "0.1.1",
   "homepage": "https://blechdom.github.io/el-vis/",
-  "private": true,
   "dependencies": {
     "@babel/cli": "^7.19.3",
     "@elemaudio/compressor": "^1.0.2",
@@ -30,7 +29,8 @@
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -o docs -s ./src/stories/assets/"
+    "build-storybook": "build-storybook -o docs -s ./src/stories/assets/",
+    "release": "auto shipit --base-branch=main"
   },
   "eslintConfig": {
     "extends": [
