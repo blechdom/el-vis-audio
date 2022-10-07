@@ -16,7 +16,6 @@
     "@types/node": "^16.11.47",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
-    "auto": "^10.37.6",
     "cross-env": "^7.0.3",
     "fractals": "^1.0.0",
     "react": "^18.2.0",
@@ -86,26 +85,5 @@
         }
       ]
     ]
-  },
-  "description": "## audio/visual design system for [elementary.audio](https:/elementary.audio)",
-  "main": "index.tsx",
-  "directories": {
-    "doc": "docs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blechdom/el-vis.git"
-  },
-  "keywords": [
-    "audio",
-    "visual",
-    "design",
-    "system",
-    "elementary.audio"
-  ],
-  "author": "tbd",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/blechdom/el-vis/issues"
   }
 }

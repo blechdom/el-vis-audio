@@ -3,7 +3,7 @@ import WebRenderer from "@elemaudio/web-renderer";
 import { Meta, Story } from "@storybook/react";
 import { useState } from "react";
 
-import Oscilloscope from "../components/Oscilloscope";
+import Oscilloscope from "../Oscilloscope";
 
 const audioContext: AudioContext = new AudioContext();
 
