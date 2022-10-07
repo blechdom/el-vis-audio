@@ -19,7 +19,6 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4
         with:
-          echo '::set-output name=githubPagesDeployAction'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: main # The branch the action should deploy to.
           FOLDER: docs # The folder that the build-storybook script generates files.
@@ -28,7 +27,6 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v1
         with:
-          echo '::set-output name=cacheNodeModules'
           path: node_modules
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
           restore-keys: |
