@@ -1493,14 +1493,7 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@elemaudio/compressor@^1.0.2":
-  version "1.0.2"
-  resolved "http://www.elementary.audio/api/v1/registry/@elemaudio/compressor/-/@elemaudio/compressor-1.0.2.tgz#8551b0b73231db9ed3c48a1f61161f9949cced4a"
-  integrity sha512-YOt2bbm4Edn+wPURNxZ3JCNUbeNrtI5if194wwqZO9Q/WE2D8P+z8GHCqzarCBC0Ff0z+ehAXE3OcWbaN5exVQ==
-  dependencies:
-    "@elemaudio/core" "^1.0.3"
-
-"@elemaudio/core@^1.0.3", "@elemaudio/core@^1.0.8":
+"@elemaudio/core@^1.0.8":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@elemaudio/core/-/core-1.0.8.tgz#75b98cbf4b4268ea1f2c80170619f38637d3a27c"
   integrity sha512-+chojEufEKg5vS1b4UL+IYYOa6ijqiYDpFCGrw6QnW5Icf+nPX6/+cKyU14jWfrmE4j3C/Y/hdV1qRwzLmWIFQ==
@@ -7869,11 +7862,6 @@ fp-ts@^2.5.3:
   version "2.12.3"
   resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.12.3.tgz#d991b1e8467d325dadbb6b0ab9524f773e9c3c49"
   integrity sha512-8m0XvW8kZbfnJOA4NvSVXu95mLbPf4LQGwQyqVukIYS4KzSNJiyKSmuZUmbVHteUi6MGkAJGPb0goPZqI+Tsqg==
-
-fractals@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fractals/-/fractals-1.0.0.tgz#c0a3d45a4d28a3c338dc2d83de697156e6ea1398"
-  integrity sha512-YbLXEDsdf0YQlW5Cm4n2CgWcrdbY/dEb944ntg/kt7SdX+ut4j0O/hpPpkITLLldta0U9rufwpRNwJbPWaeMhg==
 
 fraction.js@^4.2.0:
   version "4.2.0"
