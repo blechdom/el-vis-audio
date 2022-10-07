@@ -1,7 +1,7 @@
 {
   "name": "el-vis-audio",
-  "version": "0.1.1",
-  "homepage": "https://blechdom.github.io/el-vis/",
+  "version": "0.1.2",
+  "homepage": "https://blechdom.github.io/el-vis-audio/",
   "dependencies": {
     "@babel/cli": "^7.19.3",
     "@elemaudio/compressor": "^1.0.2",
@@ -94,7 +94,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blechdom/el-vis.git"
+    "url": "git+https://github.com/blechdom/el-vis-audio.git"
   },
   "keywords": [
     "audio",
@@ -106,6 +106,6 @@
   "author": "tbd",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/blechdom/el-vis/issues"
+    "url": "https://github.com/blechdom/el-vis-audio/issues"
   }
 }
