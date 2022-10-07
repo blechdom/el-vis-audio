@@ -8,16 +8,18 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
       - name: Install and Build 🔧
         run: | # Install npm packages and build the Storybook files
+          echo '::set-output name=runningInstallAndBuild'
           yarn
           yarn build-storybook
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.6.2
+        uses: JamesIves/github-pages-deploy-action@4
         with:
+          echo '::set-output name=githubPagesDeployAction'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: main # The branch the action should deploy to.
           FOLDER: docs # The folder that the build-storybook script generates files.
@@ -26,6 +28,7 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v1
         with:
+          echo '::set-output name=cacheNodeModules'
           path: node_modules
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
           restore-keys: |
@@ -35,6 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
+          echo '::set-output name=createRelease'
           yarn install --frozen-lockfile
           yarn build
           yarn release
