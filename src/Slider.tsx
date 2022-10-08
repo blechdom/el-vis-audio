@@ -1,15 +1,48 @@
 import styled, { css } from "styled-components";
 
-const trackH = "0.4em";
-const thumbD = "1.5em";
-const trackC = "#098765";
-const filllC = "#ff0000";
+interface SliderProps {
+  diameter?: string;
+  fillColor?: string;
+  trackHeight?: string;
+  trackColor?: string;
+  min?: number;
+  step?: number;
+  max?: number;
+}
+
+const Slider = ({
+  diameter = "1.5em",
+  fillColor = "#FF0000",
+  trackHeight = "0.4em",
+  trackColor = "#FF7000",
+  min = 0,
+  max = 100,
+  step = 0.1,
+}: SliderProps) => {
+  return (
+    <CSSVariables
+      fillColor={fillColor}
+      trackColor={trackColor}
+      trackHeight={trackHeight}
+      diameter={diameter}
+    >
+      <StyledSlider type="range" min={min} max={max} step={step} />
+    </CSSVariables>
+  );
+};
+
+const CSSVariables = styled.div<Partial<SliderProps>>`
+  --fillColor: ${(props) => props.fillColor};
+  --trackColor: ${(props) => props.trackColor};
+  --trackHeight: ${(props) => props.trackHeight};
+  --diameter: ${(props) => props.diameter};
+`;
 
 const track = css`
   box-sizing: border-box;
   border: none;
   height: 4px;
-  background: ${trackC};
+  background: var(--trackColor);
   border-radius: 8px;
 `;
 
@@ -17,30 +50,30 @@ const trackFill = css`
   ${track};
   height: 6px;
   background-color: transparent;
-  background-image: linear-gradient(${filllC}, ${filllC}),
-    linear-gradient(${trackC}, ${trackC});
+  background-image: linear-gradient(var(--fillColor), var(--fillColor)),
+    linear-gradient(var(--trackColor), var(--trackColor));
   background-size: var(--sx) 6px, calc(100% - var(--sx)) 4px;
   background-position: left center, right center;
   background-repeat: no-repeat;
 `;
 
 const fill = css`
-  height: ${trackH};
-  background: ${filllC};
+  height: var(--trackHeight);
+  background: var(--fillColor);
   border-radius: 4px;
 `;
 
 const thumb = css`
   box-sizing: border-box;
   border: none;
-  width: ${thumbD};
-  height: ${thumbD};
+  width: var(--diameter);
+  height: var(--diameter);
   border-radius: 50%;
   background: white;
   box-shadow: 0px 0px 5px rgba(66, 97, 255, 0.5);
 `;
 
-const Slider = styled.input`
+const StyledSlider = styled.input<SliderProps>`
   &,
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -64,11 +97,11 @@ const Slider = styled.input`
 
   --range: calc(var(--max) - var(--min));
   --ratio: calc((var(--val) - var(--min)) / var(--range));
-  --sx: calc(0.5 * ${thumbD} + var(--ratio) * (100% - ${thumbD}));
+  --sx: calc(0.5 * var(--diameter) + var(--ratio) * (100% - var(--diameter)));
 
   margin: 0;
   padding: 0;
-  height: ${thumbD};
+  height: var(--diameter);
   background: transparent;
   font: 1em/1 arial, sans-serif;
 
@@ -95,7 +128,7 @@ const Slider = styled.input`
   }
 
   &::-webkit-slider-thumb {
-    margin-top: calc(0.5 * (${trackH} - ${thumbD}));
+    margin-top: calc(0.5 * (var(--trackHeight) - var(--diameter)));
     ${thumb};
   }
 
@@ -116,4 +149,5 @@ const Slider = styled.input`
     border: 0;
   }
 `;
+
 export default Slider;
