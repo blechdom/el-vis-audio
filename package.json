@@ -27,7 +27,7 @@
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -o docs -s ./src/stories/assets/",
+    "build-storybook": "build-storybook -o docs-build -s ./src/stories/assets/",
     "release": "auto shipit --base-branch=main"
   },
   "eslintConfig": {
