@@ -1,3 +1,16 @@
+# v0.1.13 (Sun Oct 09 2022)
+
+#### ⚠️ Pushed to `main`
+
+- update dist ([@blechdom](https://github.com/blechdom))
+- update index file ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.12 (Sun Oct 09 2022)
 
 #### 🐛 Bug Fix
