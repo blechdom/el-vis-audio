@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react";
 import { useState } from "react";
 import { audioContext } from "../utils/audioContext";
 import { core } from "../utils/core";
-
+import { PlayPauseButton } from "../PlayPauseButton";
 import Oscilloscope from "../Oscilloscope";
 
 type DemoProps = {
@@ -46,9 +46,7 @@ const Demo = (args: DemoProps) => {
 
   return (
     <>
-      <button onClick={togglePlay}>
-        <h2> {playing ? " Pause " : " Play "} </h2>
-      </button>
+      <PlayPauseButton playing={playing} onClick={togglePlay} />
       <br />
       <Oscilloscope audioVizData={audioVizData} {...args} />
     </>

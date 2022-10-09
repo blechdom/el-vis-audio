@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react";
 import { useState } from "react";
 import { audioContext } from "../utils/audioContext";
 import { core } from "../utils/core";
-
+import { PlayPauseButton } from "../PlayPauseButton";
 import Spectrogram from "../Spectrogram";
 
 type DemoProps = {
@@ -13,7 +13,7 @@ type DemoProps = {
 };
 
 const Demo = (args: DemoProps) => {
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState<boolean>(false);
   const [fftVizData, setFftVizData] = useState<Array<number>>([]);
 
   const togglePlay = () => {
@@ -39,9 +39,7 @@ const Demo = (args: DemoProps) => {
 
   return (
     <>
-      <button onClick={togglePlay}>
-        <h2> {playing ? " Pause " : " Play "} </h2>
-      </button>
+      <PlayPauseButton playing={playing} onClick={togglePlay} />
       <br />
       <Spectrogram fftVizData={fftVizData} {...args} />
     </>
