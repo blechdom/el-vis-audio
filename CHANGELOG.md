@@ -1,3 +1,15 @@
+# v0.1.12 (Sun Oct 09 2022)
+
+#### 🐛 Bug Fix
+
+- Reorg basic structures and components [#1](https://github.com/blechdom/el-vis-audio/pull/1) ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.11 (Sat Oct 08 2022)
 
 #### ⚠️ Pushed to `main`
