@@ -12,8 +12,11 @@ const Template: ComponentStory<typeof Slider> = (args) => <Slider {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  type: "range",
+  diameter: "1.5em",
+  fillColor: "#FF0000",
+  trackHeight: "0.4em",
+  trackColor: "#FF7000",
   min: 0,
-  step: 0.1,
   max: 100,
+  step: 0.1,
 };

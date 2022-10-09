@@ -1,29 +1,10 @@
 import { el } from "@elemaudio/core";
-import WebRenderer from "@elemaudio/web-renderer";
 import { Meta, Story } from "@storybook/react";
 import { useState } from "react";
-
+import { audioContext } from "../utils/audioContext";
+import { core } from "../utils/core";
+import { PlayPauseButton } from "../PlayPauseButton";
 import Oscilloscope from "../Oscilloscope";
-
-const audioContext: AudioContext = new AudioContext();
-
-const core: WebRenderer = new WebRenderer();
-
-async function main() {
-  console.log("initializing core");
-  let node = await core.initialize(audioContext, {
-    numberOfInputs: 0,
-    numberOfOutputs: 1,
-    outputChannelCount: [2],
-  });
-  node.connect(audioContext.destination);
-}
-
-main();
-
-core.on("load", () => {
-  console.log("core loaded");
-});
 
 type DemoProps = {
   color: string;
@@ -53,8 +34,6 @@ const Demo = (args: DemoProps) => {
 
   const playSynth = () => {
     console.log("playing synth");
-
-    console.log("in load");
     const synth = el.scope({ name: "scope" }, el.mul(el.cycle(200), 0.25));
     core.render(synth, synth);
   };
@@ -67,9 +46,7 @@ const Demo = (args: DemoProps) => {
 
   return (
     <>
-      <button onClick={togglePlay}>
-        <h2> {playing ? " Pause " : " Play "} </h2>
-      </button>
+      <PlayPauseButton playing={playing} onClick={togglePlay} />
       <br />
       <Oscilloscope audioVizData={audioVizData} {...args} />
     </>
@@ -77,7 +54,7 @@ const Demo = (args: DemoProps) => {
 };
 
 const meta: Meta = {
-  title: "analyzer/oscilloscope",
+  title: "analyzer/Oscilloscope",
   component: Demo,
 };
 

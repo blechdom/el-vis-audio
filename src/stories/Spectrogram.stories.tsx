@@ -1,29 +1,10 @@
 import { el } from "@elemaudio/core";
-import WebRenderer from "@elemaudio/web-renderer";
 import { Meta, Story } from "@storybook/react";
 import { useState } from "react";
-
-import Oscilloscope from "../Oscilloscope";
-
-const audioContext: AudioContext = new AudioContext();
-
-const core: WebRenderer = new WebRenderer();
-
-async function main() {
-  console.log("initializing core");
-  let node = await core.initialize(audioContext, {
-    numberOfInputs: 0,
-    numberOfOutputs: 1,
-    outputChannelCount: [2],
-  });
-  node.connect(audioContext.destination);
-}
-
-main();
-
-core.on("load", () => {
-  console.log("core loaded");
-});
+import { audioContext } from "../utils/audioContext";
+import { core } from "../utils/core";
+import { PlayPauseButton } from "../PlayPauseButton";
+import Spectrogram from "../Spectrogram";
 
 type DemoProps = {
   color: string;
@@ -32,8 +13,8 @@ type DemoProps = {
 };
 
 const Demo = (args: DemoProps) => {
-  const [playing, setPlaying] = useState(false);
-  const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
+  const [playing, setPlaying] = useState<boolean>(false);
+  const [fftVizData, setFftVizData] = useState<Array<number>>([]);
 
   const togglePlay = () => {
     if (playing) {
@@ -45,39 +26,28 @@ const Demo = (args: DemoProps) => {
     setPlaying((play) => !play);
   };
 
-  function handleScopeData(data: Array<Array<number>>) {
-    if (data.length) {
-      setAudioVizData(data[0]);
-    }
-  }
-
   const playSynth = () => {
-    console.log("playing synth");
-
-    console.log("in load");
-    const synth = el.scope({ name: "scope" }, el.mul(el.cycle(200), 0.25));
+    const synth = el.fft({ name: "fft" }, el.mul(el.cycle(200), 0.25));
     core.render(synth, synth);
   };
 
-  core.on("scope", function (e) {
-    if (e.source === "scope") {
-      handleScopeData(e.data);
+  core.on("fft", function (e) {
+    if (e.source === "fft") {
+      setFftVizData(e.data.real);
     }
   });
 
   return (
     <>
-      <button onClick={togglePlay}>
-        <h2> {playing ? " Pause " : " Play "} </h2>
-      </button>
+      <PlayPauseButton playing={playing} onClick={togglePlay} />
       <br />
-      <Oscilloscope audioVizData={audioVizData} {...args} />
+      <Spectrogram fftVizData={fftVizData} {...args} />
     </>
   );
 };
 
 const meta: Meta = {
-  title: "analyzer/oscilloscope",
+  title: "analyzer/Spectrogram",
   component: Demo,
 };
 
