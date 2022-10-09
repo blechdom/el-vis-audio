@@ -87,7 +87,7 @@
     ]
   },
   "description": "## audio/visual design system for [elementary.audio](https:/elementary.audio)",
-  "main": "index.tsx",
+  "main": "dist/index.js",
   "directories": {
     "doc": "docs"
   },
