@@ -3,6 +3,8 @@
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "declaration": true,
+    "declarationDir": "types",
+    "sourceMap": true,
     "outDir": "dist",
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,7 +17,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "emitDeclarationOnly": true,
     "jsx": "react-jsx"
   },
   "include": ["src"]

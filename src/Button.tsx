@@ -1,14 +1,8 @@
-import React from "react";
+import { FC } from "react";
 import styled from "styled-components";
+import { ButtonProps } from "./Button.types";
 
-export interface ButtonProps {
-  backgroundColor?: string;
-  hoverColor?: string;
-  label?: string;
-  onClick?: () => void;
-}
-
-const Button: React.FC<ButtonProps> = ({ label, ...props }) => {
+const Button: FC<ButtonProps> = ({ label, ...props }) => {
   return <StyledButton {...props}>{label}</StyledButton>;
 };
 

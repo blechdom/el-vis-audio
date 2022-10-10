@@ -1,15 +1,9 @@
-import react from "react";
+import { FC } from "react";
 import { useCallback, useEffect, useRef } from "react";
 import { toLog } from "./utils";
+import { SpectrogramProps } from "./Spectrogram.types";
 
-interface SpectrogramProps {
-  fftVizData: Array<number>;
-  color: string;
-  height: number;
-  width: number;
-}
-
-const Spectrogram = ({
+const Spectrogram: FC<SpectrogramProps> = ({
   fftVizData,
   color,
   height,

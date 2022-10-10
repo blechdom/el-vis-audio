@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react";
 import { useState } from "react";
 import { audioContext } from "../utils/audioContext";
 import { core } from "../utils/core";
-import { PlayPauseButton } from "../PlayPauseButton";
+import PlayPauseButton from "../PlayPauseButton";
 import Spectrogram from "../Spectrogram";
 
 type DemoProps = {

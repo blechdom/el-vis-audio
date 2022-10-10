@@ -1,14 +1,8 @@
-import react from "react";
+import { FC } from "react";
 import { useCallback, useEffect, useRef } from "react";
+import { OscilloscopeProps } from "./Oscilloscope.types";
 
-interface OscilloscopeProps {
-  audioVizData: Array<number>;
-  color: string;
-  height: number;
-  width: number;
-}
-
-const Oscilloscope = ({
+const Oscilloscope: FC<OscilloscopeProps> = ({
   audioVizData,
   color,
   height,

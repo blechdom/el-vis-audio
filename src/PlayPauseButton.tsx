@@ -1,14 +1,8 @@
-import react from "react";
+import { FC } from "react";
 import styled from "styled-components";
+import { PlayPauseButtonProps } from "./PlayPauseButton.types";
 
-interface PlayPauseButtonProps {
-  backgroundColor?: string;
-  hoverColor?: string;
-  playing?: boolean;
-  onClick?: () => void;
-}
-
-export const PlayPauseButton = (props: PlayPauseButtonProps) => {
+const PlayPauseButton: FC<PlayPauseButtonProps> = (props) => {
   return <StyledPlayPauseButton {...props} />;
 };
 
@@ -33,3 +27,5 @@ const StyledPlayPauseButton = styled.button<PlayPauseButtonProps>`
       ${(props) => props.hoverColor ?? "#FF7000"};
   }
 `;
+
+export default PlayPauseButton;

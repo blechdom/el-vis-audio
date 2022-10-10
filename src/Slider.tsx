@@ -1,17 +1,8 @@
-import react from "react";
+import { FC } from "react";
 import styled, { css } from "styled-components";
+import { SliderProps } from "./Slider.types";
 
-interface SliderProps {
-  diameter?: string;
-  fillColor?: string;
-  trackHeight?: string;
-  trackColor?: string;
-  min?: number;
-  step?: number;
-  max?: number;
-}
-
-const Slider = ({
+const Slider: FC<SliderProps> = ({
   diameter = "1.5em",
   fillColor = "#FF0000",
   trackHeight = "0.4em",

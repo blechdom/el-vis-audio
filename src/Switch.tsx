@@ -1,11 +1,8 @@
-import react from "react";
+import { FC } from "react";
 import styled from "styled-components";
+import { SwitchProps } from "./Switch.types";
 
-interface SwitchProps {
-  backgroundColor?: string;
-}
-
-export const Switch = ({ ...props }: SwitchProps) => {
+const Switch: FC<SwitchProps> = (props) => {
   return (
     <SwitchWrapper>
       <SwitchBox id="checkbox" type="checkbox" />
@@ -58,3 +55,5 @@ const SwitchBox = styled.input<SwitchProps>`
     }
   }
 `;
+
+export default Switch;
