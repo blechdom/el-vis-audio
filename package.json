@@ -27,6 +27,7 @@
   "scripts": {
     "start": "start-storybook -p 6006 -s public",
     "build": "cross-env BABEL_ENV=production babel --extensions .ts,.tsx src -d dist",
+    "clean": "rm -rf dist",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook",
     "release": "auto shipit --base-branch=main"
