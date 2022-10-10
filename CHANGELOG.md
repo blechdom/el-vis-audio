@@ -1,3 +1,15 @@
+# v0.1.14 (Mon Oct 10 2022)
+
+#### ⚠️ Pushed to `main`
+
+- update babel for typescript ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.13 (Sun Oct 09 2022)
 
 #### ⚠️ Pushed to `main`
