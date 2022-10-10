@@ -16,6 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/blechdom/el-vis-audio.git"
   },
+  "author": "Kristin Galvin <blechdom@gmail.com>",
   "keywords": [
     "audio",
     "visual",
