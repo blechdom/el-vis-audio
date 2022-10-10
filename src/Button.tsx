@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import styled from "styled-components";
 
 interface ButtonProps {
@@ -8,7 +8,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-export const Button = ({ label, ...props }: ButtonProps) => {
+const Button: React.FC<ButtonProps> = ({ label, ...props }) => {
   return <StyledButton {...props}>{label}</StyledButton>;
 };
 
@@ -27,3 +27,5 @@ const StyledButton = styled.button<ButtonProps>`
     background: ${(props) => props.hoverColor ?? "#FF7000"};
   }
 `;
+
+export default Button;
