@@ -1,5 +1,5 @@
 # Name of our action
-name: NPM Rselease
+name: NPM Release
 
 # The event that will trigger the action
 on:
