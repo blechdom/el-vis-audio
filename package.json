@@ -1,6 +1,6 @@
 {
   "name": "el-vis-audio",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "homepage": "https://blechdom.github.io/el-vis-audio/",
   "dependencies": {
     "@babel/cli": "^7.19.3",
