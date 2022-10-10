@@ -1,3 +1,4 @@
+import react from "react";
 import styled, { css } from "styled-components";
 
 interface SliderProps {

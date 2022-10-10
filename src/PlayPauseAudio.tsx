@@ -1,3 +1,4 @@
+import react from "react";
 import { useState } from "react";
 import { audioContext } from "./utils/audioContext";
 import { PlayPauseButton } from "./PlayPauseButton";
