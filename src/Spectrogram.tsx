@@ -1,5 +1,4 @@
-import { FC } from "react";
-import { useCallback, useEffect, useRef } from "react";
+import React, { FC, useCallback, useEffect, useRef } from "react";
 import { toLog } from "./utils";
 import { SpectrogramProps } from "./Spectrogram.types";
 

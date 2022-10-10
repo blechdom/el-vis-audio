@@ -1,11 +1,9 @@
 import { el } from "@elemaudio/core";
 import { Meta, Story } from "@storybook/react";
-import { useState } from "react";
-import { audioContext } from "../utils/audioContext";
+import React, { useEffect, useState } from "react";
 import { core } from "../utils/core";
-import PlayPauseButton from "../PlayPauseButton";
+import PlayPauseAudio from "../PlayPauseAudio";
 import Oscilloscope from "../Oscilloscope";
-import React from "react";
 
 type DemoProps = {
   color: string;
@@ -17,15 +15,11 @@ const Demo = (args: DemoProps) => {
   const [playing, setPlaying] = useState(false);
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
 
-  const togglePlay = () => {
+  useEffect(() => {
     if (playing) {
-      audioContext.suspend();
-    } else {
-      audioContext.resume();
       playSynth();
     }
-    setPlaying((play) => !play);
-  };
+  }, [playing]);
 
   function handleScopeData(data: Array<Array<number>>) {
     if (data.length) {
@@ -39,7 +33,7 @@ const Demo = (args: DemoProps) => {
     core.render(synth, synth);
   };
 
-  core.on("scope", function (e) {
+  core?.on("scope", function (e) {
     if (e.source === "scope") {
       handleScopeData(e.data);
     }
@@ -47,7 +41,7 @@ const Demo = (args: DemoProps) => {
 
   return (
     <>
-      <PlayPauseButton playing={playing} onClick={togglePlay} />
+      <PlayPauseAudio onPlay={setPlaying} />
       <br />
       <Oscilloscope audioVizData={audioVizData} {...args} />
     </>

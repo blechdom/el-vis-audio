@@ -1,11 +1,9 @@
 import { el } from "@elemaudio/core";
 import { Meta, Story } from "@storybook/react";
-import { useState } from "react";
-import { audioContext } from "../utils/audioContext";
+import React, { useEffect, useState } from "react";
 import { core } from "../utils/core";
-import PlayPauseButton from "../PlayPauseButton";
+import PlayPauseAudio from "../PlayPauseAudio";
 import Spectrogram from "../Spectrogram";
-import React from "react";
 
 type DemoProps = {
   color: string;
@@ -17,22 +15,18 @@ const Demo = (args: DemoProps) => {
   const [playing, setPlaying] = useState<boolean>(false);
   const [fftVizData, setFftVizData] = useState<Array<number>>([]);
 
-  const togglePlay = () => {
+  useEffect(() => {
     if (playing) {
-      audioContext.suspend();
-    } else {
-      audioContext.resume();
       playSynth();
     }
-    setPlaying((play) => !play);
-  };
+  }, [playing]);
 
   const playSynth = () => {
     const synth = el.fft({ name: "fft" }, el.mul(el.cycle(200), 0.25));
     core.render(synth, synth);
   };
 
-  core.on("fft", function (e) {
+  core?.on("fft", function (e) {
     if (e.source === "fft") {
       setFftVizData(e.data.real);
     }
@@ -40,7 +34,7 @@ const Demo = (args: DemoProps) => {
 
   return (
     <>
-      <PlayPauseButton playing={playing} onClick={togglePlay} />
+      <PlayPauseAudio onPlay={setPlaying} />
       <br />
       <Spectrogram fftVizData={fftVizData} {...args} />
     </>

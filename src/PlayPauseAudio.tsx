@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { audioContext } from "./utils/audioContext";
 import PlayPauseButton from "./PlayPauseButton";
 import { PlayPauseAudioProps } from "./PlayPauseAudio.types";

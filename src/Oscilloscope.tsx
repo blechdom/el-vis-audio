@@ -1,5 +1,4 @@
-import { FC } from "react";
-import { useCallback, useEffect, useRef } from "react";
+import React, { FC, useCallback, useEffect, useRef } from "react";
 import { OscilloscopeProps } from "./Oscilloscope.types";
 
 const Oscilloscope: FC<OscilloscopeProps> = ({
