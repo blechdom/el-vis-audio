@@ -1,3 +1,17 @@
+# v0.1.23 (Mon Oct 10 2022)
+
+#### ⚠️ Pushed to `main`
+
+- add author ([@blechdom](https://github.com/blechdom))
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- trim package.json ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.22 (Mon Oct 10 2022)
 
 #### ⚠️ Pushed to `main`
