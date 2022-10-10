@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-interface ButtonProps {
+export interface ButtonProps {
   backgroundColor?: string;
   hoverColor?: string;
   label?: string;
