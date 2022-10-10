@@ -5,6 +5,7 @@ import { audioContext } from "../utils/audioContext";
 import { core } from "../utils/core";
 import PlayPauseButton from "../PlayPauseButton";
 import Oscilloscope from "../Oscilloscope";
+import React from "react";
 
 type DemoProps = {
   color: string;

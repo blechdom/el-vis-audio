@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ComponentMeta } from "@storybook/react";
 import { audioContext } from "../utils/audioContext";
 import PlayPauseAudio from "../PlayPauseAudio";
+import React from "react";
 
 export default {
   title: "audio/Play-Pause Audio",
