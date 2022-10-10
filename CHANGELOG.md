@@ -1,3 +1,16 @@
+# v0.1.17 (Mon Oct 10 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- test react implementation in button ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.16 (Mon Oct 10 2022)
 
 #### ⚠️ Pushed to `main`
