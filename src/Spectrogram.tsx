@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useRef } from "react";
 import { toLog } from "./utils";
 import { SpectrogramProps } from "./Spectrogram.types";
 
-const Spectrogram: FC<SpectrogramProps> = ({
+export const Spectrogram: FC<SpectrogramProps> = ({
   fftVizData,
   color,
   height,
@@ -41,5 +41,3 @@ const Spectrogram: FC<SpectrogramProps> = ({
 
   return <canvas width={width} height={height} ref={canvas} />;
 };
-
-export default Spectrogram;

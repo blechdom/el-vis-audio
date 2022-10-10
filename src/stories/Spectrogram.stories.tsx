@@ -1,9 +1,7 @@
 import { el } from "@elemaudio/core";
 import { Meta, Story } from "@storybook/react";
 import React, { useEffect, useState } from "react";
-import { core } from "../utils/core";
-import PlayPauseAudio from "../PlayPauseAudio";
-import Spectrogram from "../Spectrogram";
+import { core, PlayPauseAudio, Spectrogram } from "../";
 
 type DemoProps = {
   color: string;

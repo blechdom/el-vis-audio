@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { SwitchProps } from "./Switch.types";
 
-const Switch: FC<SwitchProps> = (props) => {
+export const Switch: FC<SwitchProps> = (props) => {
   return (
     <SwitchWrapper>
       <SwitchBox id="checkbox" type="checkbox" />
@@ -55,5 +55,3 @@ const SwitchBox = styled.input<SwitchProps>`
     }
   }
 `;
-
-export default Switch;

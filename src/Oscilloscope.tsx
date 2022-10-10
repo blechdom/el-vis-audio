@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useRef } from "react";
 import { OscilloscopeProps } from "./Oscilloscope.types";
 
-const Oscilloscope: FC<OscilloscopeProps> = ({
+export const Oscilloscope: FC<OscilloscopeProps> = ({
   audioVizData,
   color,
   height,
@@ -41,5 +41,3 @@ const Oscilloscope: FC<OscilloscopeProps> = ({
 
   return <canvas width={width} height={height} ref={canvas} />;
 };
-
-export default Oscilloscope;

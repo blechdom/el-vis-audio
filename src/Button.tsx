@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { ButtonProps } from "./Button.types";
 
-const Button: FC<ButtonProps> = ({ label, ...props }) => {
+export const Button: FC<ButtonProps> = ({ label, ...props }) => {
   return <StyledButton {...props}>{label}</StyledButton>;
 };
 
@@ -21,5 +21,3 @@ const StyledButton = styled.button<ButtonProps>`
     background: ${(props) => props.hoverColor ?? "#FF7000"};
   }
 `;
-
-export default Button;

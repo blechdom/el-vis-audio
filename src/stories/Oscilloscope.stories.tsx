@@ -1,9 +1,7 @@
+import React, { useEffect, useState } from "react";
 import { el } from "@elemaudio/core";
 import { Meta, Story } from "@storybook/react";
-import React, { useEffect, useState } from "react";
-import { core } from "../utils/core";
-import PlayPauseAudio from "../PlayPauseAudio";
-import Oscilloscope from "../Oscilloscope";
+import { core, Oscilloscope, PlayPauseAudio } from "../";
 
 type DemoProps = {
   color: string;

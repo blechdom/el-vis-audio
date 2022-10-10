@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled, { css } from "styled-components";
 import { SliderProps } from "./Slider.types";
 
-const Slider: FC<SliderProps> = ({
+export const Slider: FC<SliderProps> = ({
   diameter = "1.5em",
   fillColor = "#FF0000",
   trackHeight = "0.4em",
@@ -141,5 +141,3 @@ const StyledSlider = styled.input<SliderProps>`
     border: 0;
   }
 `;
-
-export default Slider;

@@ -1,7 +1,7 @@
+import React from "react";
 import { ComponentMeta } from "@storybook/react";
 import { useArgs } from "@storybook/client-api";
-import PlayPauseButton from "../PlayPauseButton";
-import React from "react";
+import { PlayPauseButton } from "../PlayPauseButton";
 
 export default {
   title: "UI/Play-Pause Button",

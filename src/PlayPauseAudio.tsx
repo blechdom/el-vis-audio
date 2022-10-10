@@ -1,9 +1,9 @@
 import React, { FC, useState } from "react";
 import { audioContext } from "./utils/audioContext";
-import PlayPauseButton from "./PlayPauseButton";
+import { PlayPauseButton } from "./PlayPauseButton";
 import { PlayPauseAudioProps } from "./PlayPauseAudio.types";
 
-const PlayPauseAudio: FC<PlayPauseAudioProps> = ({
+export const PlayPauseAudio: FC<PlayPauseAudioProps> = ({
   playing = false,
   onPlay,
   ...props
@@ -30,5 +30,3 @@ const PlayPauseAudio: FC<PlayPauseAudioProps> = ({
     </div>
   );
 };
-
-export default PlayPauseAudio;

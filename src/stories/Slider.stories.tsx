@@ -1,7 +1,6 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import React from "react";
-
-import Slider from "../Slider";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { Slider } from "../Slider";
 
 export default {
   title: "UI/Slider",

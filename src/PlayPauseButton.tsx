@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { PlayPauseButtonProps } from "./PlayPauseButton.types";
 
-const PlayPauseButton: FC<PlayPauseButtonProps> = (props) => {
+export const PlayPauseButton: FC<PlayPauseButtonProps> = (props) => {
   return <StyledPlayPauseButton {...props} />;
 };
 
@@ -27,5 +27,3 @@ const StyledPlayPauseButton = styled.button<PlayPauseButtonProps>`
       ${(props) => props.hoverColor ?? "#FF7000"};
   }
 `;
-
-export default PlayPauseButton;
