@@ -33,7 +33,7 @@
     "build": "rollup -c",
     "clean": "rm -rf dist",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -c .storybook",
     "test-storybook": "test-storybook",
     "release": "auto shipit --base-branch=main",
     "test": "jest"
