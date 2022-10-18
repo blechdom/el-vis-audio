@@ -3,7 +3,7 @@ import { ComponentMeta } from "@storybook/react";
 import { audioContext, PlayPauseAudio } from "../";
 
 export default {
-  title: "audio/Play-Pause Audio",
+  title: "webaudio/Play-Pause Audio",
   component: PlayPauseAudio,
   args: {
     backgroundColor: "#FF0000",

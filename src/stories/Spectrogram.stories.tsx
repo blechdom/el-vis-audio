@@ -17,6 +17,7 @@ const Demo = (args: DemoProps) => {
     if (playing) {
       playSynth();
     }
+    return core.reset();
   }, [playing]);
 
   const playSynth = () => {

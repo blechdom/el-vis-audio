@@ -10,6 +10,7 @@ export const Slider: FC<SliderProps> = ({
   min = 0,
   max = 100,
   step = 0.1,
+  onChange,
 }: SliderProps) => {
   return (
     <CSSVariables
@@ -18,7 +19,13 @@ export const Slider: FC<SliderProps> = ({
       trackHeight={trackHeight}
       diameter={diameter}
     >
-      <StyledSlider type="range" min={min} max={max} step={step} />
+      <StyledSlider
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        onChange={onChange}
+      />
     </CSSVariables>
   );
 };

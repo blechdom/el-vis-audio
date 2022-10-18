@@ -1,13 +1,36 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import React, { useState } from "react";
+import { Story, Meta } from "@storybook/react";
 import { Slider } from "../Slider";
 
-export default {
-  title: "UI/Slider",
-  component: Slider,
-} as ComponentMeta<typeof Slider>;
+type DemoProps = {
+  color: string;
+  height: number;
+  width: number;
+};
 
-const Template: ComponentStory<typeof Slider> = (args) => <Slider {...args} />;
+const Demo = (args: DemoProps) => {
+  const [sliderValue, setSliderValue] = useState<number>(100);
+
+  return (
+    <>
+      <h2>value = {sliderValue}</h2>
+      <Slider
+        value={sliderValue}
+        onChange={(event) => setSliderValue(parseFloat(event.target.value))}
+        {...args}
+      />
+    </>
+  );
+};
+
+const meta: Meta = {
+  title: "ui/Slider",
+  component: Demo,
+};
+
+export default meta;
+
+const Template: Story<DemoProps> = (args) => <Demo {...args} />;
 
 export const Default = Template.bind({});
 
