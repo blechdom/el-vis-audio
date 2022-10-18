@@ -1,3 +1,18 @@
+# v0.1.29 (Tue Oct 18 2022)
+
+#### ⚠️ Pushed to `main`
+
+- move some files around ([@blechdom](https://github.com/blechdom))
+- fix static files copying ([@blechdom](https://github.com/blechdom))
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- add webaudio-controls and knobs gallery ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.28 (Tue Oct 18 2022)
 
 #### ⚠️ Pushed to `main`
