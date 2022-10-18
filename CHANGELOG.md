@@ -1,3 +1,15 @@
+# v0.1.31 (Tue Oct 18 2022)
+
+#### ⚠️ Pushed to `main`
+
+- update build script ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.30 (Tue Oct 18 2022)
 
 #### ⚠️ Pushed to `main`
