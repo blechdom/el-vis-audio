@@ -1,3 +1,15 @@
+# v0.1.28 (Tue Oct 18 2022)
+
+#### ⚠️ Pushed to `main`
+
+- add react-select and oscillators and fix slider ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.27 (Mon Oct 10 2022)
 
 #### ⚠️ Pushed to `main`
