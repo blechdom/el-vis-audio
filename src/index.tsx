@@ -1,4 +1,3 @@
-import "./webaudio-controls/webaudio-controls";
 export * from "./Button";
 export * from "./Oscilloscope";
 export * from "./PlayPauseAudio";
