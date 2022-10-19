@@ -1,4 +1,4 @@
-export interface KnobProps {
+export interface WebAudioKnobProps {
   src?: string;
   sprites?: number;
   value?: number;

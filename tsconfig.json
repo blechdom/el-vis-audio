@@ -30,13 +30,7 @@
       "es2021"
     ]
   },
-  "include": [
-    "src",
-    "jest.transform.js",
-    "src/Knob.tsx",
-    "temp-zone/webaudio-controls",
-    "src/stories/Knob.stories.tsx"
-  ],
+  "include": ["src", "jest.transform.js"],
   "exclude": [
     "dist",
     "node_modules",
