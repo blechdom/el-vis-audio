@@ -1,3 +1,15 @@
+# v0.1.35 (Wed Oct 19 2022)
+
+#### 🐛 Bug Fix
+
+- Webcomponents [#2](https://github.com/blechdom/el-vis-audio/pull/2) ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.34 (Wed Oct 19 2022)
 
 #### ⚠️ Pushed to `main`
