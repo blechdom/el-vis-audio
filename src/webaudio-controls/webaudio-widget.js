@@ -1,3 +1,12 @@
+import { opt } from "./";
+
+let midimenu = document.createElement("ul");
+midimenu.id = "webaudioctrl-context-menu";
+midimenu.innerHTML = `<li class="webaudioctrl-context-menu__title">MIDI Learn</li>
+<li class="webaudioctrl-context-menu__item" id="webaudioctrl-context-menu-learn" onclick="webAudioControlsWidgetManager.contextMenuLearn()">Learn</li>
+<li class="webaudioctrl-context-menu__item" onclick="webAudioControlsWidgetManager.contextMenuClear()">Clear</li>
+<li class="webaudioctrl-context-menu__item" onclick="webAudioControlsWidgetManager.contextMenuClose()">Close</li>
+`;
 export class WebAudioControlsWidgetManager {
   constructor() {
     this.midiAccess = null;
@@ -136,7 +145,7 @@ export class WebAudioControlsWidget extends HTMLElement {
     this.addEventListener("mouseout", this.pointerout);
     this.addEventListener("contextmenu", this.contextMenu);
     this.hover = this.drag = 0;
-    //document.body.appendChild(midimenu);
+    document.body.appendChild(midimenu);
     this.basestyle = `
 .webaudioctrl-tooltip{
   display:inline-block;

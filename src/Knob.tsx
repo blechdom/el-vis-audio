@@ -1,5 +1,5 @@
 import React, { FC, DOMAttributes } from "react";
-import { WebAudioKnob } from "./webaudio-controls/webaudio-knob";
+import { WebAudioKnob } from "./webaudio-controls";
 console.log("WebAudioKnob", WebAudioKnob);
 import "./webaudio-controls/webaudio-knob.js";
 import { KnobProps } from "./Knob.types";

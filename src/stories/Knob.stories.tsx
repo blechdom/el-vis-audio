@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Knob } from "../Knob";
 
 export default {
-  title: "UI/Knob",
+  title: "UI/WebAudioControls/Knob",
   component: Knob,
 } as ComponentMeta<typeof Knob>;
 
