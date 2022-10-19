@@ -1,7 +1,7 @@
 import React, { FC, DOMAttributes } from "react";
-import { WebAudioKnob } from "./webaudio-controls/webaudio-controls-modules.js";
+import { WebAudioKnob } from "../src/webaudio-controls/webaudio-knob";
 console.log("WebAudioKnob", WebAudioKnob);
-import "./webaudio-controls/webaudio-controls-modules.js";
+import "../src/webaudio-controls/webaudio-knob.js";
 import { KnobProps } from "./Knob.types";
 
 export type CustomEvents<K extends string> = {
