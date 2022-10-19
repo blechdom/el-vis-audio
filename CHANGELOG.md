@@ -1,3 +1,15 @@
+# v0.1.34 (Wed Oct 19 2022)
+
+#### ⚠️ Pushed to `main`
+
+- remove unneeded packages ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.33 (Wed Oct 19 2022)
 
 #### ⚠️ Pushed to `main`
