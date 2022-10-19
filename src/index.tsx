@@ -1,5 +1,4 @@
 export * from "./Button";
-export * from "./Knob";
 export * from "./Oscilloscope";
 export * from "./PlayPauseAudio";
 export * from "./PlayPauseButton";

@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentMeta } from "@storybook/react";
-import Knob from "../Knob";
+import Knob from "./Knob";
 
 export default {
   title: "ui/Knob",
