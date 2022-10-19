@@ -1,7 +1,7 @@
 import React, { FC, DOMAttributes } from "react";
-import { WebAudioKnob } from "../src/webaudio-controls/webaudio-knob";
+import { WebAudioKnob } from "./webaudio-controls/webaudio-knob";
 console.log("WebAudioKnob", WebAudioKnob);
-import "../src/webaudio-controls/webaudio-knob.js";
+import "./webaudio-controls/webaudio-knob.js";
 import { KnobProps } from "./Knob.types";
 
 export type CustomEvents<K extends string> = {
@@ -19,6 +19,6 @@ declare global {
   }
 }
 
-export default function Knob(props: KnobProps) {
+export const Knob: FC<KnobProps> = (props) => {
   return <webaudio-knob {...props}></webaudio-knob>;
-}
+};

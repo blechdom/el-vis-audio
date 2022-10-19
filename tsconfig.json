@@ -33,9 +33,9 @@
   "include": [
     "src",
     "jest.transform.js",
-    "temp-zone/Knob.tsx",
+    "src/Knob.tsx",
     "temp-zone/webaudio-controls",
-    "temp-zone/Knob.stories.tsx"
+    "src/stories/Knob.stories.tsx"
   ],
   "exclude": [
     "dist",

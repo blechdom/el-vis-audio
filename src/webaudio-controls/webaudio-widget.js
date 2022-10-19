@@ -136,7 +136,7 @@ export class WebAudioControlsWidget extends HTMLElement {
     this.addEventListener("mouseout", this.pointerout);
     this.addEventListener("contextmenu", this.contextMenu);
     this.hover = this.drag = 0;
-    document.body.appendChild(midimenu);
+    //document.body.appendChild(midimenu);
     this.basestyle = `
 .webaudioctrl-tooltip{
   display:inline-block;

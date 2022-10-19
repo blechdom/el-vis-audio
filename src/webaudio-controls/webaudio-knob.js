@@ -106,12 +106,6 @@ let opt = {
 if (window.WebAudioControlsOptions)
   Object.assign(opt, window.WebAudioControlsOptions);
 
-try {
-  customElements.define("webaudio-knob", WebAudioKnob);
-} catch (error) {
-  console.log("webaudio-knob already defined");
-}
-
 export class WebAudioKnob extends WebAudioControlsWidget {
   constructor() {
     super();
@@ -559,4 +553,11 @@ export class WebAudioKnob extends WebAudioControlsWidget {
     ev.stopPropagation();
     return false;
   }
+}
+
+try {
+  console.log("custom elements", customElements);
+  customElements.define("webaudio-knob", WebAudioKnob);
+} catch (error) {
+  console.log("webaudio-knob already defined");
 }
