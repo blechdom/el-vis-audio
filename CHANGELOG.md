@@ -1,3 +1,52 @@
+# v0.1.34 (Wed Oct 19 2022)
+
+#### ⚠️ Pushed to `main`
+
+- remove unneeded packages ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
+# v0.1.33 (Wed Oct 19 2022)
+
+#### ⚠️ Pushed to `main`
+
+- update static folders ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
+# v0.1.32 (Wed Oct 19 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- remove webcomponents since it broke everything ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
+# v0.1.31 (Tue Oct 18 2022)
+
+#### ⚠️ Pushed to `main`
+
+- update build script ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.30 (Tue Oct 18 2022)
 
 #### ⚠️ Pushed to `main`
