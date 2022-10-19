@@ -1,3 +1,15 @@
+# v0.1.33 (Wed Oct 19 2022)
+
+#### ⚠️ Pushed to `main`
+
+- update static folders ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.32 (Wed Oct 19 2022)
 
 #### ⚠️ Pushed to `main`
