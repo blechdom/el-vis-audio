@@ -1,3 +1,22 @@
+# v0.1.36 (Thu Oct 20 2022)
+
+#### 🐛 Bug Fix
+
+- Newwac [#4](https://github.com/blechdom/el-vis-audio/pull/4) ([@blechdom](https://github.com/blechdom))
+- wac2 [#3](https://github.com/blechdom/el-vis-audio/pull/3) ([@blechdom](https://github.com/blechdom))
+
+#### ⚠️ Pushed to `main`
+
+- try to fix type issues ([@blechdom](https://github.com/blechdom))
+- rename for types ([@blechdom](https://github.com/blechdom))
+- update types to avoid conflicts ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.35 (Wed Oct 19 2022)
 
 #### 🐛 Bug Fix
