@@ -1,11 +1,10 @@
-export * from "./webaudio-controls-module";
-
+import "./webaudio-controls-module";
 import { DOMAttributes } from "react";
-import { WebAudioKnob } from "./webaudio-controls-module.js";
-import { WebAudioSlider } from "./webaudio-controls-module.js";
-import { WebAudioSwitch } from "./webaudio-controls-module.js";
-import { WebAudioParam } from "./webaudio-controls-module.js";
-import { WebAudioKeyboard } from "./webaudio-controls-module.js";
+import { WebAudioKnob } from "./webaudio-controls-module";
+import { WebAudioSlider } from "./webaudio-controls-module";
+import { WebAudioSwitch } from "./webaudio-controls-module";
+import { WebAudioParam } from "./webaudio-controls-module";
+import { WebAudioKeyboard } from "./webaudio-controls-module";
 
 type CustomEvents<K extends string> = {
   [key in K]: (event: CustomEvent) => void;

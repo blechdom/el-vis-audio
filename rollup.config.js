@@ -26,7 +26,9 @@ const rollups = [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript({
+        tsconfig: "./tsconfig.json",
+      }),
       terser(),
     ],
     external: ["react", "react-dom", "styled-components"],

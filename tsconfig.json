@@ -30,7 +30,7 @@
       "es2021"
     ]
   },
-  "include": ["src", "jest.transform.js"],
+  "include": ["src", "jest.transform.js", "src/web-components"],
   "exclude": [
     "dist",
     "node_modules",

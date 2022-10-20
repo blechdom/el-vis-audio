@@ -21,7 +21,7 @@
  *	 limitations under the License.
  *
  * */
-
+//@ts-nocheck
 let styles = document.createElement("style");
 styles.innerHTML = `#webaudioctrl-context-menu {
   display: none;
