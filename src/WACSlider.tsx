@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import "./webaudio-controls/webaudio-controls-module.js";
-import { WebAudioSliderProps } from "./WebAudioSlider.types";
+import { WACSliderProps } from "./WACSlider.types";
 
-export const WebAudioSlider: FC<WebAudioSliderProps> = (props) => {
+export const WACSlider: FC<WACSliderProps> = (props) => {
   return <webaudio-slider {...props}></webaudio-slider>;
 };

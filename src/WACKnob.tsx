@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import "./webaudio-controls/webaudio-controls-module.js";
-import { WebAudioKnobProps } from "./WebAudioKnob.types";
+import { WACKnobProps } from "./WACKnob.types";
 
-export const WebAudioKnob: FC<WebAudioKnobProps> = (props) => {
+export const WACKnob: FC<WACKnobProps> = (props) => {
   return <webaudio-knob {...props}></webaudio-knob>;
 };

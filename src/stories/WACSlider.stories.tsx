@@ -1,23 +1,23 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { WebAudioSlider } from "../WebAudioSlider";
+import { WACSlider } from "../WACSlider";
 
 export default {
-  title: "WebAudio-Controls/WebAudioSlider",
-  component: WebAudioSlider,
-} as ComponentMeta<typeof WebAudioSlider>;
+  title: "WebAudio-Controls/WACSlider",
+  component: WACSlider,
+} as ComponentMeta<typeof WACSlider>;
 
 export const Gallery = () => {
   return (
     <>
-      <WebAudioSlider />
-      <WebAudioSlider
+      <WACSlider />
+      <WACSlider
         src={"./img/hsliderbody.png"}
         knobsrc={"./img/hsliderknob.png"}
         tracking={"rel"}
       />
       <br />
-      <WebAudioSlider
+      <WACSlider
         src={"./img/vsliderbody.png"}
         knobsrc={"./img/vsliderknob.png"}
         tracking={"rel"}
@@ -26,8 +26,8 @@ export const Gallery = () => {
   );
 };
 
-const Template: ComponentStory<typeof WebAudioSlider> = (args) => (
-  <WebAudioSlider {...args} />
+const Template: ComponentStory<typeof WACSlider> = (args) => (
+  <WACSlider {...args} />
 );
 
 export const Default = Template.bind({});

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import "./webaudio-controls/webaudio-controls-module.js";
-import { WebAudioSwitchProps } from "./WebAudioSwitch.types";
+import { WACSwitchProps } from "./WACSwitch.types";
 
-export const WebAudioSwitch: FC<WebAudioSwitchProps> = (props) => {
+export const WACSwitch: FC<WACSwitchProps> = (props) => {
   return <webaudio-switch {...props}></webaudio-switch>;
 };

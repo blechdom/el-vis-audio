@@ -1,4 +1,4 @@
-export interface WebAudioSwitchProps {
+export interface WACSwitchProps {
   src?: string;
   value?: number;
   min?: number;

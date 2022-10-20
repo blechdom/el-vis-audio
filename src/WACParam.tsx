@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import "./webaudio-controls/webaudio-controls-module.js";
-import { WebAudioParamProps } from "./WebAudioParam.types";
+import { WACParamProps } from "./WACParam.types";
 
-export const WebAudioParam: FC<WebAudioParamProps> = (props) => {
+export const WACParam: FC<WACParamProps> = (props) => {
   return <webaudio-param {...props}></webaudio-param>;
 };

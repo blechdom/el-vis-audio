@@ -1,4 +1,4 @@
-export interface WebAudioSliderProps {
+export interface WACSliderProps {
   src?: string;
   knobsrc?: string;
   tracking?: "rel" | "abs";

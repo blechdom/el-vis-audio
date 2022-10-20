@@ -1,4 +1,4 @@
-export interface WebAudioKnobProps {
+export interface WACKnobProps {
   src?: string;
   sprites?: number;
   value?: number;
