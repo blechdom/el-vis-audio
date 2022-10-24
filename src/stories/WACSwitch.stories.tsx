@@ -11,8 +11,15 @@ export const Gallery = () => {
   return (
     <>
       <WACSwitch />
-      <WACSwitch src="./knobs/switch_toggle.png" />
-      <WACSwitch src="./knobs/redbutton128.png" />
+      <WACSwitch src="./images/switch_toggle.png" />
+      <WACSwitch src="./images/redbutton128.png" />
+      <WACSwitch src="./images/green_button.png" />
+      <WACSwitch src="./images/power_switch.png" />
+      <WACSwitch src="./images/prophet5_button.png" />
+      <WACSwitch src="./images/solo.png" />
+      <WACSwitch src="./images/stainless_switch.png" />
+      <WACSwitch src="./images/switch_mode.png" />
+      <WACSwitch src="./images/switch_slide.png" />
     </>
   );
 };

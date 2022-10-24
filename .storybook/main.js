@@ -10,5 +10,5 @@ module.exports = {
     "@storybook/addon-storyshots",
   ],
   framework: "@storybook/react",
-  staticDirs: ["../src/stories/assets", "../src/webaudio-controls/images"],
+  staticDirs: ["../src/stories/assets", "../src/webaudio-controls"],
 };
