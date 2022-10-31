@@ -219,10 +219,11 @@ const Presets = styled.div`
   margin-right: 25px;
 `;
 
-export const meta: Meta = {
+const meta: Meta = {
   title: "experiments/Recursive FM",
   component: Demo,
 };
+export default meta;
 
 const Template: Story = () => <Demo />;
 
