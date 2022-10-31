@@ -5,13 +5,7 @@ import styled from "styled-components";
 import { core, Button, Oscilloscope, PlayPauseAudio, Slider } from "../";
 require("events").EventEmitter.defaultMaxListeners = 0;
 
-type DemoProps = {
-  color: string;
-  height: number;
-  width: number;
-};
-
-const Demo = (args: DemoProps) => {
+const Demo = () => {
   const [playing, setPlaying] = useState(false);
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
   const [steps, setSteps] = useState<number>(3);
@@ -116,8 +110,13 @@ const Demo = (args: DemoProps) => {
   return (
     <>
       <h1>Recursive FM Synthesis</h1>
-      <PlayPauseAudio onPlay={setPlaying} />{" "}
-      <Oscilloscope audioVizData={audioVizData} {...args} />
+      <PlayPauseAudio onPlay={setPlaying} />
+      <Oscilloscope
+        audioVizData={audioVizData}
+        color={"#FF0000"}
+        width={400}
+        height={100}
+      />
       <br />
       <Presets>
         {presets.map((preset, i) => (
@@ -198,22 +197,6 @@ const Demo = (args: DemoProps) => {
   );
 };
 
-const meta: Meta = {
-  title: "elementary/RecursiveFM",
-  component: Demo,
-};
-
-export default meta;
-
-const Template: Story<DemoProps> = (args) => <Demo {...args} />;
-
-export const Default = Template.bind({});
-
-Default.args = {
-  color: "#FF0000",
-  width: 400,
-  height: 100,
-};
 const StyledButton = styled(Button)`
   background-color: #0f9ff5;
   color: #ffffff;
@@ -235,3 +218,12 @@ const SliderLabel = styled.span`
 const Presets = styled.div`
   margin-right: 25px;
 `;
+
+export const meta: Meta = {
+  title: "experiments/Recursive FM",
+  component: Demo,
+};
+
+const Template: Story = () => <Demo />;
+
+export const Default = Template.bind({});
