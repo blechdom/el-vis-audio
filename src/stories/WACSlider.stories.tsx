@@ -12,14 +12,14 @@ export const Gallery = () => {
     <>
       <WACSlider />
       <WACSlider
-        src={"./img/hsliderbody.png"}
-        knobsrc={"./img/hsliderknob.png"}
+        src={"./images/hsliderbody.png"}
+        knobsrc={"./images/hsliderknob.png"}
         tracking={"rel"}
       />
       <br />
       <WACSlider
-        src={"./img/vsliderbody.png"}
-        knobsrc={"./img/vsliderknob.png"}
+        src={"./images/vsliderbody.png"}
+        knobsrc={"./images/vsliderknob.png"}
         tracking={"rel"}
       />
     </>

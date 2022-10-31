@@ -13,6 +13,8 @@ type CustomElement<T, K extends string = ""> = Partial<
   T & DOMAttributes<T> & { children: any } & CustomEvents<`on${K}`>
 >;
 
+console.log("WebAudioKnob", WebAudioKnob);
+
 declare global {
   namespace JSX {
     interface IntrinsicElements {
