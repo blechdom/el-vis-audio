@@ -1,3 +1,16 @@
+# v0.1.40 (Mon Oct 31 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- add spirals ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.39 (Mon Oct 31 2022)
 
 #### ⚠️ Pushed to `main`
