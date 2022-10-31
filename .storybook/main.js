@@ -8,6 +8,7 @@ module.exports = {
     "@storybook/addon-jest",
     "@storybook/addon-links",
     "@storybook/addon-storyshots",
+    "@storybook/addon-theming",
   ],
   framework: "@storybook/react",
   staticDirs: ["../src/stories/assets", "../src/webaudio-controls"],

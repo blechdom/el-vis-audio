@@ -1,6 +1,5 @@
-# el-vis-audio
-
-## audio/visual design system for [elementary.audio](https:/elementary.audio)
+![el-vis-audio](el-vis-audio-logo-700x300.png)
+## audio/visual design system for [elementary.audio](https://elementary.audio)
 
 - [Go to Storybook](https://blechdom.github.io/el-vis-audio)
 - [Go to Code](https://github.com/blechdom/el-vis-audio)
