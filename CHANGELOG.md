@@ -1,3 +1,15 @@
+# v0.1.37 (Mon Oct 31 2022)
+
+#### 🐛 Bug Fix
+
+- Knobs [#5](https://github.com/blechdom/el-vis-audio/pull/5) ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.36 (Thu Oct 20 2022)
 
 #### 🐛 Bug Fix
