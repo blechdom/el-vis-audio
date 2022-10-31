@@ -1,6 +1,7 @@
 export interface WACKnobProps {
   src?: string | null;
   value?: number;
+  colors?: string;
   defvalue?: number;
   min?: number;
   max?: number;
@@ -11,8 +12,8 @@ export interface WACKnobProps {
   sprites?: number | null;
   sensitivity?: number;
   log?: 0 | 1; // int, 1 = logarithmic, 0 = linear
-  valueTip?: 0 | 1;
-  toolTip?: string | null;
+  valuetip?: 0 | 1;
+  tooltip?: string | null;
   conv?: string | null;
   enable?: 0 | 1;
   highlightColor?: string;
