@@ -44,6 +44,8 @@
   "dependencies": {
     "@elemaudio/core": "^1.0.8",
     "@elemaudio/web-renderer": "^1.0.16",
+    "@react-spring/web": "^9.5.5",
+    "@use-gesture/react": "^10.2.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-select": "^5.5.1",

@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface SliderProps {
   diameter?: string;
   fillColor?: string;

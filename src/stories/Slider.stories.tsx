@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import { Story, Meta } from "@storybook/react";
 import { Slider } from "../Slider";
+import { SliderProps } from "../Slider.types";
 
-type DemoProps = {
-  color: string;
-  height: number;
-  width: number;
-};
-
-const Demo = (args: DemoProps) => {
+const Demo = (args: SliderProps) => {
   const [sliderValue, setSliderValue] = useState<number>(100);
 
   return (
@@ -30,7 +25,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<DemoProps> = (args) => <Demo {...args} />;
+const Template: Story<SliderProps> = (args) => <Demo {...args} />;
 
 export const Default = Template.bind({});
 
