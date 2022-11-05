@@ -1,9 +1,11 @@
 import React, { FC, ReactNode, useMemo, useState } from "react";
 import styled, { css } from "styled-components";
-import { useGesture } from "@use-gesture/react";
+import { useDrag, useGesture, usePinch } from "@use-gesture/react";
 import { GesturesProps } from "./Gestures.types";
 import { FullGestureState } from "@use-gesture/core/src/types/state";
-import { UserGestureConfig } from "@use-gesture/core/src/types/config";
+
+// import { UserGestureConfig } from "@use-gesture/core/src/types/config";
+// const config: UserGestureConfig = {};
 
 type AllGestureStates =
   | FullGestureState<"drag">
@@ -14,10 +16,12 @@ type AllGestureStates =
   | FullGestureState<"hover">
   | null;
 
-// const config: UserGestureConfig = {};
-
 export const Gestures: FC<GesturesProps> = ({}) => {
   const [gestureState, setGestureState] = useState<AllGestureStates>(null);
+  const [dragState, setDragState] =
+    useState<FullGestureState<"drag"> | null>(null);
+  const [pinchState, setPinchState] =
+    useState<FullGestureState<"pinch"> | null>(null);
 
   const gestureTypes = useMemo(() => {
     let types = [];
@@ -26,7 +30,6 @@ export const Gestures: FC<GesturesProps> = ({}) => {
         types.push("move");
       }
       if (gestureState.dragging !== undefined && gestureState.dragging) {
-        console.log("gestureState", gestureState);
         types.push("drag");
       }
       if (gestureState.pinching !== undefined && gestureState.pinching) {
@@ -71,14 +74,23 @@ export const Gestures: FC<GesturesProps> = ({}) => {
   }, [gestureState]);
 
   const bind = useGesture({
-    onDrag: (state) => setGestureState(state),
-    onPinch: (state) => setGestureState(state),
+    onDrag: (state) => {
+      setGestureState(state);
+      setDragState(state);
+    },
+    onPinch: (state) => {
+      setGestureState(state);
+      setPinchState(state);
+    },
     onScroll: (state) => setGestureState(state),
     onMove: (state) => setGestureState(state),
     onWheel: (state) => setGestureState(state),
     onHover: (state) => setGestureState(state),
     // config,
   });
+
+  //const bindPinch = usePinch((state) => setPinchState(state));
+  // const bindDrag = useDrag((state) => setDragState(state));
 
   return (
     <>
@@ -142,29 +154,29 @@ export const Gestures: FC<GesturesProps> = ({}) => {
           <li>timeStamp: {gestureState.timeStamp}</li>
           <li>elapsedTime: {gestureState.elapsedTime}</li>
           <li>event type: {gestureState.type}</li>
-          {gestureState?.axis !== undefined && (
-            <li>axis: {gestureState.axis}</li>
-          )}
+          <li>(Drag Only) axis: {dragState?.axis}</li>
+          <li>
+            (Drag Only) swipe:{" "}
+            {`x: ${dragState?.swipe[0]}   y: ${dragState?.swipe[1]}`}
+          </li>
+          <li>(Drag Only) tap: {dragState?.tap}</li>
+          <li>(Drag Only) canceled: {dragState?.canceled}</li>
+          <li>(Pinch Only) axis: {pinchState?.axis}</li>
+          <li>
+            (Pinch Only) origin{" "}
+            {`x: ${pinchState?.origin[0]}   y: ${pinchState?.origin[1]}`}
+          </li>
+          <li>(Pinch Only) turns: {pinchState?.turns}</li>
+          <li>(Pinch Only) canceled: {pinchState?.canceled}</li>
         </ul>
       )}
     </>
   );
 };
 
-/*return (
-    <>
-      <Outline width={width} height={height}>
-        <animated.div {...bind()} style={{ x, y }}>
-          {children}
-        </animated.div>
-      </Outline>
-      [ x: {adjustedX}, y: {adjustedY} ]
-    </>
-  );*/
-
 const Outline = styled.div<Partial<GesturesProps>>`
   touch-action: none;
-  width: 400px;
+  width: 100%;
   height: 200px;
   border: 1px solid #000;
 `;
