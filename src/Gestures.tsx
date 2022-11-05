@@ -175,6 +175,7 @@ export const Gestures: FC<GesturesProps> = ({}) => {
 };
 
 const Outline = styled.div<Partial<GesturesProps>>`
+  caret-color: transparent;
   touch-action: none;
   width: 100%;
   height: 200px;
