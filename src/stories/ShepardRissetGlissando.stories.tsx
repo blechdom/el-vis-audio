@@ -35,8 +35,7 @@ const Demo = () => {
   }
 
   function phasedCycle(speed: number, phaseOffset: number) {
-    let t = el.add(el.phasor(speed, 0), phaseOffset);
-    let p = el.sub(t, el.floor(t));
+    let p = phasedPhasor(speed, phaseOffset);
     let offset = el.sub(el.mul(2 * Math.PI, p), el.const({ value: 1.5 }));
     return el.mul(el.add(el.sin(offset), 1), 0.5);
   }
