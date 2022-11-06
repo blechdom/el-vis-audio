@@ -1,3 +1,16 @@
+# v0.1.45 (Sat Nov 05 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- transparent caret ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.44 (Sat Nov 05 2022)
 
 #### ⚠️ Pushed to `main`
