@@ -35,7 +35,10 @@ const Demo = () => {
   }
 
   function phasedCycle(speed: number, phaseOffset: number) {
-    return el.sin(el.mul(2 * Math.PI, phasedPhasor(speed, phaseOffset)));
+    let t = el.add(el.phasor(speed, 0), phaseOffset);
+    let p = el.sub(t, el.floor(t));
+    let offset = el.sub(el.mul(2 * Math.PI, p), el.const({ value: 1.5 }));
+    return el.mul(el.add(el.sin(offset), 1), 0.5);
   }
 
   function rampingSine(
@@ -62,7 +65,7 @@ const Demo = () => {
       el.cycle(
         el.add(el.mul(el.pow(modulator, 2), freqRange), smoothStartFreq)
       ),
-      phasedCycle(speed / 2, phaseOffset / 2)
+      phasedCycle(speed, phaseOffset)
     );
   }
 
