@@ -7,10 +7,10 @@ require("events").EventEmitter.defaultMaxListeners = 0;
 
 const Demo = () => {
   const [playing, setPlaying] = useState(false);
-  const [mainVolume, setMainVolume] = useState<number>(45);
-  const [numVoices, setNumVoices] = useState<number>(1);
-  const [speed, setSpeed] = useState<number>(0.1);
-  const [startFreq, setStartFreq] = useState<number>(200);
+  const [mainVolume, setMainVolume] = useState<number>(0);
+  const [numVoices, setNumVoices] = useState<number>(8);
+  const [speed, setSpeed] = useState<number>(0.05);
+  const [startFreq, setStartFreq] = useState<number>(100);
   const [intervalRatio, setIntervalRatio] = useState<number>(2);
   const [directionUp, setDirectionUp] = useState<boolean>(true);
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
