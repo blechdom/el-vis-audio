@@ -1,3 +1,15 @@
+# v0.1.48 (Sun Nov 06 2022)
+
+#### ⚠️ Pushed to `main`
+
+- fix risset ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.47 (Sun Nov 06 2022)
 
 #### ⚠️ Pushed to `main`
