@@ -27,7 +27,7 @@ const Demo = () => {
   }
 
   function phasedPhasor(speed: number, phaseOffset: number) {
-    let t = el.add(el.phasor(speed, 0), phaseOffset);
+    let t = el.add(el.phasor(el.sm(speed), 0), phaseOffset);
     return el.sub(t, el.floor(t));
   }
 
@@ -48,7 +48,9 @@ const Demo = () => {
     const modulator = directionUp ? modulatorUp : modulatorDown;
     let freqRange = startFreq * intervalRatio * numVoices;
     return el.mul(
-      el.cycle(el.add(el.mul(el.pow(modulator, 2), freqRange), startFreq)),
+      el.cycle(
+        el.add(el.mul(el.pow(modulator, 2), el.sm(freqRange)), el.sm(startFreq))
+      ),
       phasedCycle(speed / 2, phaseOffset / 2)
     );
   }
