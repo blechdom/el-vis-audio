@@ -3,6 +3,7 @@ export * from "./Gestures";
 export * from "./Oscilloscope";
 export * from "./PlayPauseAudio";
 export * from "./PlayPauseButton";
+export * from "./Presets";
 export * from "./Slider";
 export * from "./Spectrogram";
 export * from "./Sphere";
