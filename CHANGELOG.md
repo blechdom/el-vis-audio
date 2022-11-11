@@ -1,3 +1,16 @@
+# v0.1.53 (Fri Nov 11 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- add localstorage to presets ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.52 (Thu Nov 10 2022)
 
 #### ⚠️ Pushed to `main`
