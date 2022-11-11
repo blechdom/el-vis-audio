@@ -4,11 +4,9 @@ import { Presets } from "../";
 import { PresetsProps } from "../Presets.types";
 
 const Demo = (args: Partial<PresetsProps>) => {
-  const [presetList, setPresetList] = useState<unknown[][]>([
-    [3, "dog", true, 7.7],
-    [14, "cat", false, 5.56],
-    [2, "bird", false, -3.14],
-  ]);
+  const [presetList, setPresetList] = useState<unknown[][]>(
+    args.presetList ?? []
+  );
   const [currentSetting, setCurrentSetting] = useState<unknown[]>(
     presetList[0]
   );
@@ -108,12 +106,25 @@ const meta: Meta = {
 };
 export default meta;
 
-const Template: Story = () => <Demo />;
+const Template: Story = (args) => <Demo {...args} />;
 
 export const Default = Template.bind({});
 
 Default.args = {
+  presetList: [
+    [3, "dog", true, 7.7],
+    [14, "cat", false, 5.56],
+    [2, "bird", false, -3.14],
+  ],
   allowAdd: true,
+};
+
+export const WithLocalStorage = Template.bind({});
+
+WithLocalStorage.args = {
+  ...Default.args,
+  allowLocalStorage: true,
+  presetsName: "storybookPresets",
 };
 
 export const WithDelete = Template.bind({});

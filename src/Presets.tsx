@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "./";
 import { PresetsProps } from "./Presets.types";
@@ -8,19 +8,36 @@ export const Presets: FC<PresetsProps> = ({
   allowDelete = false,
   allowDownload = false,
   allowUpload = false,
+  allowLocalStorage = false,
   currentSetting = [],
   presetList = [],
+  presetsName = "defaultPresets",
   onUpdateCurrentPreset,
   onUpdatePresetList,
 }: PresetsProps) => {
+  useEffect(() => {
+    if (allowLocalStorage) {
+      const storedPresets = localStorage.getItem(presetsName);
+      if (storedPresets && onUpdatePresetList) {
+        onUpdatePresetList(JSON.parse(storedPresets));
+      }
+    }
+  }, []);
+
   function addNewPreset() {
     const newPresetList: unknown[][] = presetList.concat([currentSetting]);
+    allowLocalStorage && saveToLocalStorage(JSON.stringify(newPresetList));
     onUpdatePresetList && onUpdatePresetList(newPresetList);
   }
 
   function deletePreset() {
     const newPresetList: unknown[][] = presetList.concat([currentSetting]);
+    allowLocalStorage && saveToLocalStorage(JSON.stringify(newPresetList));
     onUpdatePresetList && onUpdatePresetList(newPresetList);
+  }
+
+  function saveToLocalStorage(presetData: string) {
+    allowLocalStorage && localStorage.setItem(presetsName, presetData);
   }
 
   return (
