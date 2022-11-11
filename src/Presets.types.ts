@@ -2,7 +2,7 @@ export interface PresetsProps {
   currentSetting?: unknown[];
   presetList: unknown[][];
   allowAdd?: boolean;
-  allowDelete?: boolean;
+  allowEdit?: boolean;
   allowLocalStorage?: boolean;
   allowDownload?: boolean;
   allowUpload?: boolean;

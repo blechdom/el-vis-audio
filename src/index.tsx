@@ -1,5 +1,6 @@
 export * from "./Button";
 export * from "./Gestures";
+export * from "./Modal";
 export * from "./Oscilloscope";
 export * from "./PlayPauseAudio";
 export * from "./PlayPauseButton";

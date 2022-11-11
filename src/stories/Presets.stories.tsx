@@ -127,17 +127,23 @@ WithLocalStorage.args = {
   presetsName: "storybookPresets",
 };
 
-export const WithDelete = Template.bind({});
+export const WithEdit = Template.bind({});
 
-WithDelete.args = {
+WithEdit.args = {
   ...Default.args,
-  allowDelete: true,
+  allowEdit: true,
+};
+
+export const EditAndLocalStorage = Template.bind({});
+
+EditAndLocalStorage.args = {
+  ...Default.args,
+  allowEdit: true,
+  allowLocalStorage: true,
 };
 
 export const WithJSON = Template.bind({});
 
 WithJSON.args = {
-  ...WithDelete.args,
-  allowAdd: true,
-  allowDelete: true,
+  ...WithEdit.args,
 };

@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button } from "./";
+import { Button, Modal } from "./";
 import { PresetsProps } from "./Presets.types";
 
 export const Presets: FC<PresetsProps> = ({
   allowAdd = true,
-  allowDelete = false,
+  allowEdit = false,
   allowDownload = false,
   allowUpload = false,
   allowLocalStorage = false,
@@ -15,6 +15,8 @@ export const Presets: FC<PresetsProps> = ({
   onUpdateCurrentPreset,
   onUpdatePresetList,
 }: PresetsProps) => {
+  const [showEditPresets, setShowEditPresets] = useState<boolean>(false);
+
   useEffect(() => {
     if (allowLocalStorage) {
       const storedPresets = localStorage.getItem(presetsName);
@@ -30,16 +32,20 @@ export const Presets: FC<PresetsProps> = ({
     onUpdatePresetList && onUpdatePresetList(newPresetList);
   }
 
-  function deletePreset() {
-    const newPresetList: unknown[][] = presetList.concat([currentSetting]);
-    allowLocalStorage && saveToLocalStorage(JSON.stringify(newPresetList));
-    onUpdatePresetList && onUpdatePresetList(newPresetList);
-  }
-
   function saveToLocalStorage(presetData: string) {
     allowLocalStorage && localStorage.setItem(presetsName, presetData);
   }
 
+  function editPresets() {
+    setShowEditPresets(true);
+  }
+
+  function deletePreset(index: number): void {
+    const updatedPresetList = presetList.filter((preset, i) => i !== index);
+    allowLocalStorage && saveToLocalStorage(JSON.stringify(updatedPresetList));
+    onUpdatePresetList && onUpdatePresetList(updatedPresetList);
+    setShowEditPresets(false);
+  }
   return (
     <>
       <PresetsContainer>
@@ -58,17 +64,38 @@ export const Presets: FC<PresetsProps> = ({
             onClick={addNewPreset}
             label={`+ Add Preset`}
           />
+          {allowEdit && (
+            <>
+              <StyledButton
+                key={`edit`}
+                onClick={editPresets}
+                label={`Edit Presets`}
+              />
+              <Modal
+                active={showEditPresets}
+                hideModal={() => setShowEditPresets(false)}
+                title="Edit Presets"
+                footer={
+                  <StyledButton
+                    onClick={() => setShowEditPresets(false)}
+                    label="Cancel"
+                  />
+                }
+              >
+                <PresetsContainer>
+                  {presetList.map((preset, i) => (
+                    <StyledButton
+                      key={`preset-${i}`}
+                      onClick={() => deletePreset(i)}
+                      label={`Delete Preset ${i + 1}`}
+                    />
+                  ))}
+                </PresetsContainer>
+              </Modal>
+            </>
+          )}
         </div>
       )}
-      {allowDelete && (
-        <div>
-          <StyledButton
-            key={`delete`}
-            onClick={deletePreset}
-            label={`- Delete Preset`}
-          />
-        </div>
-      )}{" "}
     </>
   );
 };
