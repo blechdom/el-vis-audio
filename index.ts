@@ -1,10 +1,12 @@
 import "./webaudio-controls-module";
 import { DOMAttributes } from "react";
-import { WebAudioKnob } from "./webaudio-controls-module";
-import { WebAudioSlider } from "./webaudio-controls-module";
-import { WebAudioSwitch } from "./webaudio-controls-module";
-import { WebAudioParam } from "./webaudio-controls-module";
-import { WebAudioKeyboard } from "./webaudio-controls-module";
+import {
+  WebAudioKnob,
+  WebAudioSlider,
+  WebAudioSwitch,
+  WebAudioParam,
+  WebAudioKeyboard,
+} from "./webaudio-controls-module";
 
 type CustomEvents<K extends string> = {
   [key in K]: (event: CustomEvent) => void;
@@ -12,8 +14,6 @@ type CustomEvents<K extends string> = {
 type CustomElement<T, K extends string = ""> = Partial<
   T & DOMAttributes<T> & { children: any } & CustomEvents<`on${K}`>
 >;
-
-console.log("WebAudioKnob", WebAudioKnob);
 
 declare global {
   namespace JSX {
