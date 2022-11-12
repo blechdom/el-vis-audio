@@ -38,3 +38,12 @@ Default.args = {
   max: 100,
   step: 0.1,
 };
+
+export const withTicks = Template.bind({});
+
+withTicks.args = {
+  ...Default.args,
+  tickList: ["dog", "cat", "bird", "fish", "horse", "cow", "pig", "sheep"],
+  tickColor: "#FF0000",
+  tickPadding: "0.75em",
+};

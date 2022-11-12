@@ -5,6 +5,9 @@ export interface SliderProps {
   fillColor?: string;
   trackHeight?: string;
   trackColor?: string;
+  tickList?: string[];
+  tickColor?: string;
+  tickPadding?: string;
   min?: number;
   step?: number;
   max?: number;

@@ -8,5 +8,5 @@ export const WACKnob: FC<WACKnobProps> = (props: WACKnobProps) => {
   }, [props.highlightColor, props.bodyColor, props.indicatorColor]);
 
   // @ts-ignore
-  return <webaudio-knob colors={threeColors ?? ""} {...props}/>;
+  return <webaudio-knob colors={threeColors ?? ""} {...props} />;
 };

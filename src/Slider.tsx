@@ -7,6 +7,9 @@ export const Slider: FC<SliderProps> = ({
   fillColor = "#FF0000",
   trackHeight = "0.4em",
   trackColor = "#FF7000",
+  tickList,
+  tickColor,
+  tickPadding = "0.75em",
   min = 0,
   max = 100,
   step = 0.1,
@@ -19,13 +22,32 @@ export const Slider: FC<SliderProps> = ({
       trackHeight={trackHeight}
       diameter={diameter}
     >
-      <StyledSlider
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        onChange={onChange}
-      />
+      {!tickList ? (
+        <StyledSlider
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          onChange={onChange}
+        />
+      ) : (
+        <>
+          <StyledSlider
+            type="range"
+            min={0}
+            max={tickList.length - 1}
+            step={1}
+            onChange={onChange}
+          />
+          <Ticks padding={tickPadding}>
+            {tickList.map((tick) => (
+              <Tick color={tickColor} key={tick}>
+                <TickText color={tickColor}>{tick}</TickText>
+              </Tick>
+            ))}
+          </Ticks>
+        </>
+      )}
     </CSSVariables>
   );
 };
@@ -69,7 +91,7 @@ const thumb = css`
   height: var(--diameter);
   border-radius: 50%;
   background: white;
-  box-shadow: 0px 0px 5px rgba(66, 97, 255, 0.5);
+  box-shadow: 0 0 5px rgba(66, 97, 255, 0.5);
 `;
 
 const StyledSlider = styled.input<SliderProps>`
@@ -104,7 +126,7 @@ const StyledSlider = styled.input<SliderProps>`
   background: transparent;
   font: 1em/1 arial, sans-serif;
 
-  width: 80%;
+  width: 100%;
 
   &::-webkit-slider-runnable-track {
     ${trackFill};
@@ -147,4 +169,30 @@ const StyledSlider = styled.input<SliderProps>`
   &::-moz-focus-outer {
     border: 0;
   }
+`;
+
+const Ticks = styled.div<{ padding: string }>`
+  margin: 0;
+  padding-top: 0.5em;
+  padding-left: ${({ padding }) => padding};
+  padding-right: ${({ padding }) => padding};
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Tick = styled.span`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 2px;
+  background: ${({ color }) => color};
+  height: 7px;
+  line-height: 32px;
+  margin-bottom: 20px;
+`;
+
+const TickText = styled.div`
+  color: ${({ color }) => color};
+  font-size: 0.75rem;
+  text-transform: none;
 `;
