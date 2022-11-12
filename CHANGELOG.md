@@ -1,3 +1,16 @@
+# v0.1.55 (Sat Nov 12 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- update web components syntax ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.54 (Fri Nov 11 2022)
 
 #### ⚠️ Pushed to `main`
