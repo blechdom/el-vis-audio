@@ -1,6 +1,6 @@
 {
   "name": "el-vis-audio",
-  "version": "0.1.55",
+  "version": "0.1.56",
   "homepage": "https://blechdom.github.io/el-vis-audio/",
   "description": "audio/visual design system for [elementary.audio](https:/elementary.audio)",
   "main": "dist/cjs/index.js",
