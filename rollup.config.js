@@ -4,6 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import copy from "rollup-plugin-copy";
 
 const packageJson = require("./package.json");
 
@@ -30,6 +31,9 @@ const rollups = [
         tsconfig: "./tsconfig.json",
       }),
       terser(),
+      copy({
+        targets: [{ src: "src/webaudio-controls/images", dest: "dist/images" }],
+      }),
     ],
     external: ["react", "react-dom", "styled-components"],
   },
