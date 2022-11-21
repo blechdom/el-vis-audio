@@ -20,6 +20,7 @@ export const Gallery = () => {
       <WACSwitch src="./images/stainless_switch.png" />
       <WACSwitch src="./images/switch_mode.png" />
       <WACSwitch src="./images/switch_slide.png" />
+      <WACSwitch src="./images/golfBallButton.png" />
     </>
   );
 };

@@ -1,6 +1,6 @@
 export interface PresetsProps {
-  currentSetting?: unknown[];
-  presetList: unknown[][];
+  currentSetting?: any;
+  presetList: any;
   allowAdd?: boolean;
   allowEdit?: boolean;
   allowLocalStorage?: boolean;
@@ -8,5 +8,5 @@ export interface PresetsProps {
   allowUpload?: boolean;
   presetsName?: string;
   onUpdateCurrentPreset: (i: number) => void;
-  onUpdatePresetList?: (presetList: unknown[][]) => void;
+  onUpdatePresetList?: (presetList: any) => void;
 }

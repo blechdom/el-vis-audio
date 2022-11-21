@@ -1,6 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { WACKnob } from "../WACKnob";
+import { WACSlider } from "../WACSlider";
 
 export default {
   title: "WebAudio-Controls/WACKnob",
@@ -63,6 +64,9 @@ export const Gallery = () => {
       <WACKnob src={"./images/vernier.png"} />
       <WACKnob src={"./images/Vintage_Knob.png"} />
       <WACKnob src={"./images/yellow.png"} sprites={127} />
+      <WACKnob src={"./images/golfBallKnob.png"} />
+      <WACKnob src={"./images/golfBallKnobLight.png"} />
+      <WACKnob src={"./images/golfBallKnobLightPan.png"} value={50} />
       <WACKnob src={"./images/lineshadow.png"} />
       <WACKnob
         src={"./images/WOK_vintage_AbbeyRoad_PAN_Knob.png"}
@@ -74,5 +78,12 @@ export const Gallery = () => {
 };
 
 export const ImageSliders = () => {
-  return <WACKnob src={"./images/slider.png"} sprites={60} />;
+  return (
+    <>
+      <WACKnob src={"./images/slider.png"} sprites={60} />;
+      <WACKnob src={"./images/golfBallSliderRed.png"} sprites={52} />
+      ;
+      <WACKnob src={"./images/golfBallSlider.png"} sprites={4} />;
+    </>
+  );
 };

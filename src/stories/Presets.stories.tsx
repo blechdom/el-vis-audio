@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { Presets } from "../";
 import { PresetsProps } from "../Presets.types";
 
+type PresetType = [number, string, boolean, number];
+
 const Demo = (args: Partial<PresetsProps>) => {
-  const [presetList, setPresetList] = useState<unknown[][]>(
-    args.presetList ?? []
+  const [intVal, setIntVal] = useState<number>(0);
+  const [stringVal, setStringVal] = useState<string>("test");
+  const [boolVal, setBoolVal] = useState<boolean>(true);
+  const [floatVal, setFloatVal] = useState<number>(0.43);
+
+  const [presetList, setPresetList] = useState<PresetType[]>(
+    args.presetList ?? [[0, "test", true, 0.3]]
   );
-  const [currentSetting, setCurrentSetting] = useState<unknown[]>(
+  const [currentSetting, setCurrentSetting] = useState<PresetType>(
     presetList[0]
   );
 
-  function updatePresetList(presetList: unknown[][]) {
+  useMemo(() => {
+    setCurrentSetting([intVal, stringVal, boolVal, floatVal]);
+  }, [intVal, stringVal, boolVal, floatVal]);
+
+  function updatePresetList(presetList: PresetType[]) {
     setPresetList(presetList);
   }
 
@@ -31,54 +42,32 @@ const Demo = (args: Partial<PresetsProps>) => {
       Integer:{" "}
       <input
         type="number"
-        value={currentSetting[0] as number}
-        onChange={(val) =>
-          setCurrentSetting([
-            parseInt(val.target.value),
-            ...currentSetting.slice(1),
-          ])
-        }
+        value={currentSetting[0]}
+        onChange={(val) => setIntVal(parseInt(val.target.value))}
       />{" "}
       <br />
       <br />
       String:{" "}
       <input
         type="text"
-        value={currentSetting[1] as string}
-        onChange={(val) =>
-          setCurrentSetting([
-            currentSetting[0],
-            val.target.value,
-            ...currentSetting.slice(2),
-          ])
-        }
+        value={currentSetting[1]}
+        onChange={(val) => setStringVal(val.target.value as string)}
       />{" "}
       <br />
       <br />
       Boolean:{" "}
       <input
         type="checkbox"
-        checked={currentSetting[2] as boolean}
-        onChange={(val) =>
-          setCurrentSetting([
-            ...currentSetting.slice(0, 2),
-            val.target.checked,
-            currentSetting[3],
-          ])
-        }
+        checked={currentSetting[2]}
+        onChange={(val) => setBoolVal(val.target.checked)}
       />{" "}
       <br />
       <br />
       Float:{" "}
       <input
         type="number"
-        value={currentSetting[3] as number}
-        onChange={(val) =>
-          setCurrentSetting([
-            ...currentSetting.slice(0, 3),
-            parseFloat(val.target.value),
-          ])
-        }
+        value={currentSetting[3]}
+        onChange={(val) => setFloatVal(parseFloat(val.target.value))}
       />{" "}
       <br />
       <br />
