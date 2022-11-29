@@ -12,7 +12,7 @@ import {
 } from "../";
 require("events").EventEmitter.defaultMaxListeners = 0;
 
-type WeierstrassFunctionPreset = [number, number, number, number];
+type WeierstrassFunctionPreset = [number, number, number, number, number];
 
 const Demo = () => {
   const [playing, setPlaying] = useState(false);
@@ -21,21 +21,22 @@ const Demo = () => {
   const [varA, setVarA] = useState<number>(0.5);
   const [varB, setVarB] = useState<number>(1);
   const [fundamental, setFundamental] = useState<number>(1);
+  const [lowestFormant, setLowestFormant] = useState<number>(0);
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
   const [fftVizData, setFftVizData] = useState<Array<number>>([]);
   const [presetList, setPresetList] = useState<WeierstrassFunctionPreset[]>([
-    [440, 1, 0.5, 1.34],
-    [100, 1, 0.05, 2],
-    [200, 2, 0.333, 1],
-    [0.01, 8, 0.06, 7.23],
-    [5, 4, 0.5, 5],
+    [440, 1, 0.5, 1.34, 0],
+    [100, 1, 0.05, 2, 1],
+    [200, 2, 0.333, 1, 0],
+    [0.01, 8, 0.06, 7.23, 0],
+    [5, 4, 0.5, 5, 2],
   ]);
   const [currentSetting, setCurrentSetting] =
     useState<WeierstrassFunctionPreset>(presetList[0]);
 
   useMemo(() => {
-    setCurrentSetting([fundamental, numVoices, varA, varB]);
-  }, [numVoices, varA, varB, fundamental]);
+    setCurrentSetting([fundamental, numVoices, varA, varB, lowestFormant]);
+  }, [numVoices, varA, varB, fundamental, lowestFormant]);
 
   function updatePresetList(presetList: WeierstrassFunctionPreset[]) {
     setPresetList(presetList);
@@ -52,31 +53,22 @@ const Demo = () => {
 
   const playSynth = useCallback(() => {
     function weierstrasseIteration(i: number) {
-      /*console.log(
-        "weierstrass voice: ",
-        i,
-        " fundamental ",
-        fundamental,
-        " varA ",
-        varA,
-        " varB ",
-        varB
-      );*/
-
-      // return el.cos(el.mul(2 * Math.PI, el.phasor(fundamental, 0)));
       return el.mul(
         el.pow(
-          el.const({ key: `varA`, value: varA }),
-          el.const({ key: `exponent-is-${i}`, value: i })
+          el.sm(el.const({ key: `varA`, value: varA })),
+          el.const({ key: `i-${i}`, value: i })
         ),
         el.cos(
           el.mul(
-            el.phasor(el.const({ key: `fundamental`, value: fundamental }), 0),
             el.mul(
-              2 * Math.PI,
+              el.phasor(1 / 30, 0), // 30 = 30 seconds reset phasor
+              el.sm(el.const({ key: `fundamental`, value: fundamental * 30 }))
+            ),
+            el.mul(
+              Math.PI,
               el.pow(
-                el.const({ key: `varB`, value: varB }),
-                el.const({ key: `exponent-is-${i}`, value: i })
+                el.sm(el.const({ key: `varB`, value: varB })),
+                el.const({ key: `i2-${i}`, value: i })
               )
             )
           )
@@ -85,7 +77,8 @@ const Demo = () => {
     }
 
     const allVoices = [...Array(numVoices)].map((_, i) => {
-      return weierstrasseIteration(i);
+      let voiceIter = i + lowestFormant;
+      return weierstrasseIteration(voiceIter);
     });
 
     function addMany(ins: NodeRepr_t[]): NodeRepr_t {
@@ -94,6 +87,9 @@ const Demo = () => {
       }
       return el.add(...ins.slice(0, 7), addMany(ins.slice(8))) as NodeRepr_t;
     }
+
+    //TODO: add tanH interharmonic distortion to smooth relationship between discrete sines.
+
     const synth = el.mul(
       addMany(allVoices as NodeRepr_t[]),
       el.sm(el.const({ key: `main-amp`, value: mainVolume / 100 }))
@@ -103,7 +99,7 @@ const Demo = () => {
       el.fft({ name: "fft" }, synth)
     );
     core.render(analyzedSynth, analyzedSynth);
-  }, [numVoices, mainVolume, core, varA, varB, fundamental]);
+  }, [numVoices, mainVolume, core, varA, varB, fundamental, lowestFormant]);
 
   useEffect(() => {
     if (playing) {
@@ -197,6 +193,16 @@ const Demo = () => {
         max={11}
         onChange={(event) => setVarB(parseFloat(event.target.value))}
       />
+      <h2>
+        lowest formant =<SliderLabel>{currentSetting[4]}</SliderLabel>
+      </h2>
+      <Slider
+        value={currentSetting[4]}
+        min={0}
+        step={1}
+        max={numVoices - 1}
+        onChange={(event) => setLowestFormant(parseFloat(event.target.value))}
+      />
     </>
   );
 };
@@ -223,6 +229,7 @@ const meta: Meta = {
   title: "experiments/Weierstrass Function",
   component: Demo,
 };
+
 export default meta;
 
 const Template: Story = () => <Demo />;
