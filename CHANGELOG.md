@@ -1,3 +1,15 @@
+# v0.1.58 (Mon Nov 21 2022)
+
+#### ⚠️ Pushed to `main`
+
+- add rollup copy plugin to copy WAC images into npm repo ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.57 (Mon Nov 21 2022)
 
 #### ⚠️ Pushed to `main`
