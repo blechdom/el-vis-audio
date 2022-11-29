@@ -1,3 +1,16 @@
+# v0.1.60 (Tue Nov 29 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- fix weierstrass function phasor amplitude ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.59 (Tue Nov 29 2022)
 
 #### ⚠️ Pushed to `main`
