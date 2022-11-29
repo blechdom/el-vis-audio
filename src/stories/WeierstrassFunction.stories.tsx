@@ -53,22 +53,25 @@ const Demo = () => {
 
   const playSynth = useCallback(() => {
     function weierstrasseIteration(i: number) {
+      let voiceIter = el.const({
+        key: `lowestFormant-${i}`,
+        value: lowestFormant + i,
+      });
       return el.mul(
-        el.pow(
-          el.sm(el.const({ key: `varA`, value: varA })),
-          el.const({ key: `i-${i}`, value: i })
-        ),
+        el.pow(el.sm(el.const({ key: `varA-${i}`, value: varA })), voiceIter),
         el.cos(
           el.mul(
             el.mul(
               el.phasor(1 / 30, 0), // 30 = 30 seconds reset phasor
-              el.sm(el.const({ key: `fundamental`, value: fundamental * 30 }))
+              el.sm(
+                el.const({ key: `fundamental-${i}`, value: fundamental * 30 })
+              )
             ),
             el.mul(
               Math.PI,
               el.pow(
-                el.sm(el.const({ key: `varB`, value: varB })),
-                el.const({ key: `i2-${i}`, value: i })
+                el.sm(el.const({ key: `varB-${i}`, value: varB })),
+                voiceIter
               )
             )
           )
@@ -77,8 +80,7 @@ const Demo = () => {
     }
 
     const allVoices = [...Array(numVoices)].map((_, i) => {
-      let voiceIter = i + lowestFormant;
-      return weierstrasseIteration(voiceIter);
+      return weierstrasseIteration(i);
     });
 
     function addMany(ins: NodeRepr_t[]): NodeRepr_t {
@@ -160,7 +162,7 @@ const Demo = () => {
       <Slider
         value={currentSetting[0]}
         min={0.01}
-        max={200}
+        max={1000}
         onChange={(event) => setFundamental(parseFloat(event.target.value))}
       />
       <h2>
@@ -170,7 +172,7 @@ const Demo = () => {
         value={currentSetting[1]}
         min={1}
         step={1}
-        max={64}
+        max={48}
         onChange={(event) => setNumVoices(parseFloat(event.target.value))}
       />
       <h2>
