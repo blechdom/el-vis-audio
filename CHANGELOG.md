@@ -1,3 +1,16 @@
+# v0.1.59 (Tue Nov 29 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- weierstrass function part 1 ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.58 (Mon Nov 21 2022)
 
 #### ⚠️ Pushed to `main`
