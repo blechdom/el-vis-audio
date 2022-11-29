@@ -21,6 +21,8 @@ export const Gallery = () => {
       <WACSwitch src="./images/switch_mode.png" />
       <WACSwitch src="./images/switch_slide.png" />
       <WACSwitch src="./images/golfBallButton.png" />
+      <WACSwitch src="./images/switch_press.png" />
+      <WACSwitch src="./images/golfBallSwitchBW.png" />
     </>
   );
 };
