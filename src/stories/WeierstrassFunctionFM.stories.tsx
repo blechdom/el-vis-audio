@@ -37,6 +37,7 @@ const Demo = () => {
   const [fftVizData, setFftVizData] = useState<Array<number>>([]);
   const [presetList, setPresetList] = useState<WeierstrassFunctionFMPreset[]>([
     [13.21, 28, 0.32, 5.01, 0, 700, 15.5],
+    [85.21, 18, 0.87, 7.56, 10, 1800, 10],
     [0.01, 23, 0.8, 5, 0, 500, 100],
     [2.91, 2, 0.07, 6.55, 0, 640, 140],
     [5, 33, 0.49, 2.96, 0, 3000, 100],
@@ -119,14 +120,7 @@ const Demo = () => {
       );
     }
 
-    const voicesWithoutNyquist = [...Array(numVoices)].filter((_, i) => {
-      return (
-        Math.PI * Math.pow(varB, i + lowestFormant) * fundamental <
-        audioContext.sampleRate / 2
-      );
-    });
-
-    const allVoices = voicesWithoutNyquist.map((_, i) => {
+    const allVoices = [...Array(numVoices)].map((_, i) => {
       return weierstrasseIteration(i);
     });
 
