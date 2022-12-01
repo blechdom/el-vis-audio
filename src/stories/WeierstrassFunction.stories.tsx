@@ -27,7 +27,6 @@ const Demo = () => {
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
   const [fftVizData, setFftVizData] = useState<Array<number>>([]);
   const [presetList, setPresetList] = useState<WeierstrassFunctionPreset[]>([
-    [16.21, 13, 0.81, 5.38, 12],
     [1.81, 9, 0.91, 7.07, 2],
     [137, 13, 0.71, 1.41, 0],
   ]);
@@ -35,6 +34,7 @@ const Demo = () => {
     useState<WeierstrassFunctionPreset>(presetList[0]);
 
   useEffect(() => {
+    setPlaying(false);
     setCurrentSetting(presetList[0]);
     updateCurrentPreset(0);
   }, []);
@@ -65,51 +65,45 @@ const Demo = () => {
     setFftVizData(data.real);
   }
 
-  useEffect(() => {
-    if (lowestFormant > numVoices - 1) {
-      setLowestFormant(numVoices - 1);
-    }
-  }, [lowestFormant, numVoices]);
-
-  function weierstrasseIteration(i: number) {
-    scaleAmpAmount += Math.pow(varA, lowestFormant + i);
-    let voiceIter = el.const({
-      key: `lowestFormant-${i}`,
-      value: lowestFormant + i,
-    });
-    return el.mul(
-      el.pow(el.sm(el.const({ key: `varA-${i}`, value: varA })), voiceIter),
-      el.cos(
-        el.mul(
+  const weierstrasseIteration = useCallback(
+    (i: number) => {
+      scaleAmpAmount += Math.pow(varA, lowestFormant + i);
+      let voiceIter = el.const({
+        key: `lowestFormant-${lowestFormant + i}`,
+        value: lowestFormant + i,
+      });
+      return el.mul(
+        el.pow(
+          el.sm(el.const({ key: `varA-${lowestFormant + i}`, value: varA })),
+          voiceIter
+        ),
+        el.cos(
           el.mul(
-            el.phasor(1 / 60, 0), // 60 seconds reset phasor
-            el.sm(
-              el.const({ key: `fundamental-${i}`, value: fundamental * 60 })
-            )
-          ),
-          el.mul(
-            Math.PI,
-            el.pow(
-              el.sm(el.const({ key: `varB-${i}`, value: varB })),
-              voiceIter
+            el.mul(
+              el.phasor(1 / 60, 0), // 60 seconds reset phasor
+              el.sm(
+                el.const({
+                  key: `fundamental-${lowestFormant + i}`,
+                  value: fundamental * 60,
+                })
+              )
+            ),
+            el.mul(
+              Math.PI,
+              el.pow(
+                el.sm(
+                  el.const({ key: `varB-${lowestFormant + i}`, value: varB })
+                ),
+                voiceIter
+              )
             )
           )
         )
-      )
-    );
-  }
-
-  const voicesWithoutNyquist = [...Array(numVoices)].filter((_, i) => {
-    return (
-      Math.PI * Math.pow(varB, i) * fundamental < audioContext.sampleRate / 2
-    );
-  });
-
-  const allVoices = voicesWithoutNyquist.map((_, i) => {
-    scaleAmpAmount = i === 0 ? 0 : scaleAmpAmount;
-    return weierstrasseIteration(i);
-  });
-
+      );
+    },
+    [lowestFormant, varA, varB, fundamental]
+  );
+  // TODO: add to audio utilities
   function addMany(ins: NodeRepr_t[]): NodeRepr_t {
     if (ins.length < 9) {
       return el.add(...ins) as NodeRepr_t;
@@ -117,20 +111,35 @@ const Demo = () => {
     return el.add(...ins.slice(0, 7), addMany(ins.slice(8))) as NodeRepr_t;
   }
 
-  const synth = el.mul(
-    addMany(allVoices as NodeRepr_t[]),
-    el.sm(
-      el.const({ key: `main-amp`, value: mainVolume / 100 / scaleAmpAmount })
-    )
-  );
-
   const playSynth = useCallback(() => {
-    //TODO: add tanH interharmonic distortion to smooth relationship between discrete sines.
-    const analyzedSynth = el.scope(
-      { name: "scope" },
-      el.fft({ name: "fft" }, synth)
-    );
-    core.render(analyzedSynth, analyzedSynth);
+    const allVoices = [...Array(numVoices)]
+      .map((_, i) => {
+        scaleAmpAmount = i === 0 ? 0 : scaleAmpAmount;
+        return weierstrasseIteration(i) as NodeRepr_t;
+      })
+      .filter((_, i) => {
+        return (
+          Math.PI * Math.pow(varB, i + lowestFormant) * fundamental <
+          audioContext.sampleRate / 2
+        );
+      });
+    if (allVoices && allVoices.length > 0) {
+      const synth = el.mul(
+        addMany(allVoices as NodeRepr_t[]),
+        el.sm(
+          el.const({
+            key: `main-amp`,
+            value: mainVolume / 100 / scaleAmpAmount,
+          })
+        )
+      );
+
+      const analyzedSynth = el.scope(
+        { name: "scope" },
+        el.fft({ name: "fft" }, synth)
+      );
+      core.render(analyzedSynth, analyzedSynth);
+    }
   }, [numVoices, mainVolume, core, varA, varB, fundamental, lowestFormant]);
 
   useEffect(() => {

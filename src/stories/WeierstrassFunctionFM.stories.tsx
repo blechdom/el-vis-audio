@@ -37,7 +37,6 @@ const Demo = () => {
   const [fftVizData, setFftVizData] = useState<Array<number>>([]);
   const [presetList, setPresetList] = useState<WeierstrassFunctionFMPreset[]>([
     [13.21, 28, 0.32, 5.01, 0, 700, 15.5],
-    [85.21, 18, 0.87, 7.56, 10, 1800, 10],
     [0.01, 23, 0.8, 5, 0, 500, 100],
     [2.91, 2, 0.07, 6.55, 0, 640, 140],
     [5, 33, 0.49, 2.96, 0, 3000, 100],
@@ -46,6 +45,7 @@ const Demo = () => {
     useState<WeierstrassFunctionFMPreset>(presetList[0]);
 
   useEffect(() => {
+    setPlaying(false);
     setCurrentSetting(presetList[0]);
     updateCurrentPreset(0);
   }, []);
@@ -91,74 +91,75 @@ const Demo = () => {
       setLowestFormant(numVoices - 1);
     }
   }, [lowestFormant, numVoices]);
-
-  function weierstrasseIteration(i: number) {
-    let voiceIter = el.const({
-      key: `lowestFormant-${i}`,
-      value: lowestFormant + i,
-    });
-    return el.mul(
-      el.pow(el.sm(el.const({ key: `varA-${i}`, value: varA })), voiceIter),
-      el.cos(
-        el.mul(
+  const playSynth = useCallback(() => {
+    function weierstrasseIteration(i: number) {
+      let voiceIter = el.const({
+        key: `lowestFormant-${i}`,
+        value: lowestFormant + i,
+      });
+      return el.mul(
+        el.pow(el.sm(el.const({ key: `varA-${i}`, value: varA })), voiceIter),
+        el.cos(
           el.mul(
-            el.phasor(1 / 60, 0), // 60 seconds reset phasor
-            el.sm(
-              el.const({ key: `fundamental-${i}`, value: fundamental * 60 })
-            )
-          ),
-          el.mul(
-            Math.PI,
-            el.pow(
-              el.sm(el.const({ key: `varB-${i}`, value: varB })),
-              voiceIter
+            el.mul(
+              el.phasor(1 / 60, 0), // 60 seconds reset phasor
+              el.sm(
+                el.const({ key: `fundamental-${i}`, value: fundamental * 60 })
+              )
+            ),
+            el.mul(
+              Math.PI,
+              el.pow(
+                el.sm(el.const({ key: `varB-${i}`, value: varB })),
+                voiceIter
+              )
             )
           )
         )
-      )
-    );
-  }
-
-  const voicesWithoutNyquist = [...Array(numVoices)].filter((_, i) => {
-    return (
-      Math.PI * Math.pow(varB, i) * fundamental < audioContext.sampleRate / 2
-    );
-  });
-
-  const allVoices = voicesWithoutNyquist.map((_, i) => {
-    return weierstrasseIteration(i);
-  });
-
-  function addMany(ins: NodeRepr_t[]): NodeRepr_t {
-    if (ins.length < 9) {
-      return el.add(...ins) as NodeRepr_t;
+      );
     }
-    return el.add(...ins.slice(0, 7), addMany(ins.slice(8))) as NodeRepr_t;
-  }
 
-  const weierstrassWave = addMany(allVoices as NodeRepr_t[]);
+    const voicesWithoutNyquist = [...Array(numVoices)].filter((_, i) => {
+      return (
+        Math.PI * Math.pow(varB, i + lowestFormant) * fundamental <
+        audioContext.sampleRate / 2
+      );
+    });
 
-  const fmSynth = el.cycle(
-    el.add(
-      el.mul(
-        weierstrassWave,
-        el.sm(el.const({ key: `start-amp`, value: modAmp }))
-      ),
-      el.sm(el.const({ key: `start-amp-offset`, value: startOffset }))
-    )
-  );
+    const allVoices = voicesWithoutNyquist.map((_, i) => {
+      return weierstrasseIteration(i);
+    });
 
-  const synth = el.mul(
-    fmSynth,
-    el.sm(el.const({ key: `main-amp`, value: mainVolume / 100 }))
-  );
+    function addMany(ins: NodeRepr_t[]): NodeRepr_t {
+      if (ins.length < 9) {
+        return el.add(...ins) as NodeRepr_t;
+      }
+      return el.add(...ins.slice(0, 7), addMany(ins.slice(8))) as NodeRepr_t;
+    }
+    if (allVoices && allVoices.length > 0) {
+      const weierstrassWave = addMany(allVoices as NodeRepr_t[]);
 
-  const playSynth = useCallback(() => {
-    const analyzedSynth = el.scope(
-      { name: "scope" },
-      el.fft({ name: "fft" }, synth)
-    );
-    core.render(analyzedSynth, analyzedSynth);
+      const fmSynth = el.cycle(
+        el.add(
+          el.mul(
+            weierstrassWave,
+            el.sm(el.const({ key: `start-amp`, value: modAmp }))
+          ),
+          el.sm(el.const({ key: `start-amp-offset`, value: startOffset }))
+        )
+      );
+
+      const synth = el.mul(
+        fmSynth,
+        el.sm(el.const({ key: `main-amp`, value: mainVolume / 100 }))
+      );
+
+      const analyzedSynth = el.scope(
+        { name: "scope" },
+        el.fft({ name: "fft" }, synth)
+      );
+      core.render(analyzedSynth, analyzedSynth);
+    }
   }, [
     numVoices,
     mainVolume,
