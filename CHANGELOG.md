@@ -1,3 +1,16 @@
+# v0.1.63 (Thu Dec 01 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- fix nyquist bug in weierstrass ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.62 (Thu Dec 01 2022)
 
 #### ⚠️ Pushed to `main`
