@@ -13,8 +13,15 @@ import {
 } from "../";
 require("events").EventEmitter.defaultMaxListeners = 0;
 
-type WeierstrassFunctionPreset = [number, number, number, number, number];
-let scaleAmpAmount: number = 0;
+type WeierstrassFunctionFMPreset = [
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number
+];
 
 const Demo = () => {
   const [playing, setPlaying] = useState(false);
@@ -24,15 +31,19 @@ const Demo = () => {
   const [varB, setVarB] = useState<number>(1);
   const [fundamental, setFundamental] = useState<number>(1);
   const [lowestFormant, setLowestFormant] = useState<number>(0);
+  const [modAmp, setModAmp] = useState<number>(600);
+  const [startOffset, setStartOffset] = useState<number>(100);
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
   const [fftVizData, setFftVizData] = useState<Array<number>>([]);
-  const [presetList, setPresetList] = useState<WeierstrassFunctionPreset[]>([
-    [16.21, 13, 0.81, 5.38, 12],
-    [1.81, 9, 0.91, 7.07, 2],
-    [137, 13, 0.71, 1.41, 0],
+  const [presetList, setPresetList] = useState<WeierstrassFunctionFMPreset[]>([
+    [13.21, 28, 0.32, 5.01, 0, 700, 15.5],
+    [85.21, 18, 0.87, 7.56, 10, 1800, 10],
+    [0.01, 23, 0.8, 5, 0, 500, 100],
+    [2.91, 2, 0.07, 6.55, 0, 640, 140],
+    [5, 33, 0.49, 2.96, 0, 3000, 100],
   ]);
   const [currentSetting, setCurrentSetting] =
-    useState<WeierstrassFunctionPreset>(presetList[0]);
+    useState<WeierstrassFunctionFMPreset>(presetList[0]);
 
   useEffect(() => {
     setCurrentSetting(presetList[0]);
@@ -40,10 +51,18 @@ const Demo = () => {
   }, []);
 
   useMemo(() => {
-    setCurrentSetting([fundamental, numVoices, varA, varB, lowestFormant]);
-  }, [numVoices, varA, varB, fundamental, lowestFormant]);
+    setCurrentSetting([
+      fundamental,
+      numVoices,
+      varA,
+      varB,
+      lowestFormant,
+      modAmp,
+      startOffset,
+    ]);
+  }, [numVoices, varA, varB, fundamental, lowestFormant, modAmp, startOffset]);
 
-  function updatePresetList(presetList: WeierstrassFunctionPreset[]) {
+  function updatePresetList(presetList: WeierstrassFunctionFMPreset[]) {
     setPresetList(presetList);
   }
 
@@ -54,6 +73,8 @@ const Demo = () => {
     setVarA(preset[2]);
     setVarB(preset[3]);
     setLowestFormant(preset[4]);
+    setModAmp(preset[5]);
+    setStartOffset(preset[6]);
   }
 
   function handleScopeData(data: Array<Array<number>>) {
@@ -72,7 +93,6 @@ const Demo = () => {
   }, [lowestFormant, numVoices]);
 
   function weierstrasseIteration(i: number) {
-    scaleAmpAmount += Math.pow(varA, lowestFormant + i);
     let voiceIter = el.const({
       key: `lowestFormant-${i}`,
       value: lowestFormant + i,
@@ -106,7 +126,6 @@ const Demo = () => {
   });
 
   const allVoices = voicesWithoutNyquist.map((_, i) => {
-    scaleAmpAmount = i === 0 ? 0 : scaleAmpAmount;
     return weierstrasseIteration(i);
   });
 
@@ -117,21 +136,40 @@ const Demo = () => {
     return el.add(...ins.slice(0, 7), addMany(ins.slice(8))) as NodeRepr_t;
   }
 
-  const synth = el.mul(
-    addMany(allVoices as NodeRepr_t[]),
-    el.sm(
-      el.const({ key: `main-amp`, value: mainVolume / 100 / scaleAmpAmount })
+  const weierstrassWave = addMany(allVoices as NodeRepr_t[]);
+
+  const fmSynth = el.cycle(
+    el.add(
+      el.mul(
+        weierstrassWave,
+        el.sm(el.const({ key: `start-amp`, value: modAmp }))
+      ),
+      el.sm(el.const({ key: `start-amp-offset`, value: startOffset }))
     )
   );
 
+  const synth = el.mul(
+    fmSynth,
+    el.sm(el.const({ key: `main-amp`, value: mainVolume / 100 }))
+  );
+
   const playSynth = useCallback(() => {
-    //TODO: add tanH interharmonic distortion to smooth relationship between discrete sines.
     const analyzedSynth = el.scope(
       { name: "scope" },
       el.fft({ name: "fft" }, synth)
     );
     core.render(analyzedSynth, analyzedSynth);
-  }, [numVoices, mainVolume, core, varA, varB, fundamental, lowestFormant]);
+  }, [
+    numVoices,
+    mainVolume,
+    core,
+    varA,
+    varB,
+    fundamental,
+    lowestFormant,
+    modAmp,
+    startOffset,
+  ]);
 
   useEffect(() => {
     if (playing) {
@@ -153,7 +191,7 @@ const Demo = () => {
 
   return (
     <>
-      <h1>Weierstrass Function</h1>
+      <h1>Weierstrass Function FM</h1>
       <PlayPauseAudio onPlay={setPlaying} />
       <Oscilloscope
         height={200}
@@ -171,7 +209,7 @@ const Demo = () => {
         allowAdd
         allowEdit
         allowLocalStorage
-        presetsName="weierstrass-function"
+        presetsName="weierstrass-function-fm"
         currentSetting={currentSetting}
         presetList={presetList}
         onUpdateCurrentPreset={updateCurrentPreset}
@@ -193,7 +231,7 @@ const Demo = () => {
       <Slider
         value={currentSetting[0]}
         min={0.01}
-        max={1000}
+        max={400}
         onChange={(event) => setFundamental(parseFloat(event.target.value))}
       />
       <h2>
@@ -236,6 +274,25 @@ const Demo = () => {
         max={11}
         onChange={(event) => setVarB(parseFloat(event.target.value))}
       />
+      <h2>
+        modulation amplitude = <SliderLabel>{currentSetting[5]}</SliderLabel>
+      </h2>
+      <Slider
+        value={currentSetting[5]}
+        min={0}
+        max={20000}
+        onChange={(event) => setModAmp(parseFloat(event.target.value))}
+      />
+      <h2>
+        starting offset (mod bias) ={" "}
+        <SliderLabel>{currentSetting[6]}</SliderLabel>
+      </h2>
+      <Slider
+        value={currentSetting[6]}
+        min={0}
+        max={modAmp * 2}
+        onChange={(event) => setStartOffset(parseFloat(event.target.value))}
+      />
     </>
   );
 };
@@ -259,7 +316,7 @@ const SliderLabel = styled.span`
 `;
 
 const meta: Meta = {
-  title: "experiments/Weierstrass Function",
+  title: "experiments/Weierstrass Function FM",
   component: Demo,
 };
 
