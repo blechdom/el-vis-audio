@@ -37,15 +37,21 @@ const Demo = () => {
     },
     [modAmpDiv]
   );
+
+  useEffect(() => {
+    loadPreset(0);
+  }, []);
+
   useEffect(() => {
     if (playing) {
+      const carrier = el.cycle(
+        el.sm(el.const({ key: `start-freq`, value: startFreq }))
+      );
       const synth = recursiveFM(
         el.cycle(
           el.add(
             el.mul(
-              el.cycle(
-                el.sm(el.const({ key: `start-freq`, value: startFreq }))
-              ),
+              carrier,
               el.sm(el.const({ key: `start-amp`, value: modAmp }))
             ),
             el.sm(el.const({ key: `start-amp-offset`, value: startOffset }))

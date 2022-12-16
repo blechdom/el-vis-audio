@@ -28,13 +28,16 @@ const Demo = () => {
             el.sin(
               el.mul(
                 2 * Math.PI,
-                el.add(
-                  el.phasor(frequency, 0),
-                  recursiveWave(
-                    el.mul(frequency, smoothFreqDiv) as NodeRepr_t,
-                    el.mul(amp, smoothAmpDiv) as NodeRepr_t,
-                    count - 1
-                  )
+                el.mod(
+                  el.add(
+                    el.phasor(frequency, 0),
+                    recursiveWave(
+                      el.mul(frequency, smoothFreqDiv) as NodeRepr_t,
+                      el.mul(amp, smoothAmpDiv) as NodeRepr_t,
+                      count - 1
+                    )
+                  ),
+                  1
                 )
               )
             ),
