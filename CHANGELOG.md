@@ -1,3 +1,16 @@
+# v0.1.67 (Thu Dec 22 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- add phase modulation and nicks drumynth-hat ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.66 (Fri Dec 16 2022)
 
 #### ⚠️ Pushed to `main`
