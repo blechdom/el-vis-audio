@@ -32,15 +32,15 @@ const Demo = () => {
       const synth = el.sin(
         el.mul(
           2 * Math.PI,
-          el.add(
-            el.phasor(smoothModulationFreq, 0),
-            el.mod(
+          el.mod(
+            el.add(
+              el.phasor(smoothModulationFreq, 0),
               el.mul(
                 el.sin(el.mul(2 * Math.PI, el.phasor(smoothCarrierFreq, 0))),
-                indexOfModulation,
-                1
+                indexOfModulation
               )
-            )
+            ),
+            1
           )
         )
       );

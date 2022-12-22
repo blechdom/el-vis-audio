@@ -8,11 +8,11 @@ require("events").EventEmitter.defaultMaxListeners = 0;
 const Demo = () => {
   const [playing, setPlaying] = useState(false);
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
-  const [pitch, setPitch] = useState<number>(320);
-  const [tone, setTone] = useState<number>(1000);
-  const [attack, setAttack] = useState<number>(0.1);
-  const [decay, setDecay] = useState<number>(1);
-  const [speed, setSpeed] = useState<number>(1);
+  const [pitch, setPitch] = useState<number>(670);
+  const [tone, setTone] = useState<number>(4000);
+  const [attack, setAttack] = useState<number>(0.018);
+  const [decay, setDecay] = useState<number>(0.18);
+  const [speed, setSpeed] = useState<number>(1.3);
   const [mainVolume, setMainVolume] = useState<number>(0);
 
   function cycle(freq: NodeRepr_t | number, phaseOffset: NodeRepr_t | number) {
@@ -85,11 +85,9 @@ const Demo = () => {
       <h1>Nick Thompson's Drumsynth - Hat</h1>
       <h5>
         <a
-          href={
-            "https://github.com/nick-thompson/drumsynth/blob/master/hat.js#L5"
-          }
+          href={"https://github.com/nick-thompson/drumsynth/blob/master/hat.js"}
         >
-          https://github.com/nick-thompson/drumsynth/blob/master/hat.js#L5
+          https://github.com/nick-thompson/drumsynth/blob/master/hat.js
         </a>
       </h5>
       <PlayPauseAudio onPlay={setPlaying} />
