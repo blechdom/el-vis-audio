@@ -185,7 +185,7 @@ const Presets = styled.div`
 `;
 
 const meta: Meta = {
-  title: `experiments/Nick Thompson's DrumSynth Hat`,
+  title: `elementary/Nick Thompson's DrumSynth Hat`,
   component: Demo,
 };
 export default meta;

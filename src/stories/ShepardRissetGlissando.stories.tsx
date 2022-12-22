@@ -48,12 +48,20 @@ const Demo = () => {
     setPresetList(presetList);
   }
 
-  function handleLeftScopeData(data: Array<Array<number>>) {
+  function updateCurrentPreset(presetNumber: number) {
+    const preset = presetList[presetNumber];
+    setNumVoices(preset[0]);
+    setSpeed(preset[1]);
+    setStartFreq(preset[2]);
+    setIntervalRatio(preset[3]);
+    setDirectionUp(preset[4]);
+  }
+  function handleScopeData(data: Array<Array<number>>) {
     if (data.length) {
       setAudioVizData(data[0]);
     }
   }
-  function handleLeftFftData(data: any) {
+  function handleFftData(data: any) {
     setFftVizData(data.real);
   }
 
@@ -122,8 +130,8 @@ const Demo = () => {
       el.sm(el.const({ key: `main-amp`, value: mainVolume / 100 }))
     );
     const analyzedSynth = el.scope(
-      { name: "left" },
-      el.fft({ name: "left-fft" }, synth)
+      { name: "scope" },
+      el.fft({ name: "fft" }, synth)
     );
     core.render(analyzedSynth, analyzedSynth);
   }, [
@@ -143,14 +151,14 @@ const Demo = () => {
   }, [playing, playSynth]);
 
   core.on("scope", function (e) {
-    if (e.source === "left") {
-      handleLeftScopeData(e.data);
+    if (e.source === "scope") {
+      handleScopeData(e.data);
     }
   });
 
   core.on("fft", function (e) {
-    if (e.source === "left-fft") {
-      handleLeftFftData(e.data);
+    if (e.source === "fft") {
+      handleFftData(e.data);
     }
   });
 
@@ -177,7 +185,7 @@ const Demo = () => {
         presetsName="Shepard-Risset-Glissando-Storybook"
         currentSetting={currentSetting}
         presetList={presetList}
-        onUpdateCurrentPreset={(i) => setCurrentSetting(presetList[i])}
+        onUpdateCurrentPreset={updateCurrentPreset}
         onUpdatePresetList={updatePresetList}
       />
       <h2>
