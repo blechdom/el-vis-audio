@@ -16,6 +16,10 @@ const Demo = () => {
   const [ampDiv, setAmpDiv] = useState<number>(1);
   const [mainVolume, setMainVolume] = useState<number>(0);
 
+  function cycleByPhasor(phasor: NodeRepr_t | number) {
+    return el.sin(el.mul(2 * Math.PI, phasor));
+  }
+
   useEffect(() => {
     if (playing) {
       const smoothCarrierFreq: NodeRepr_t = el.sm(
@@ -29,20 +33,17 @@ const Demo = () => {
         el.const({ key: `indexOfMod`, value: indexOfMod })
       );
 
-      const synth = el.sin(
-        el.mul(
-          2 * Math.PI,
-          el.mod(
-            el.add(
-              el.phasor(smoothModulationFreq, 0),
-              el.mul(
-                el.sin(el.mul(2 * Math.PI, el.phasor(smoothCarrierFreq, 0))),
-                indexOfModulation
-              )
-            ),
-            1
-          )
-        )
+      const carrierPhasor = el.phasor(smoothCarrierFreq, 0);
+      const modulatorPhasor = el.phasor(smoothModulationFreq, 0);
+
+      const synth = cycleByPhasor(
+        //el.mod(
+        el.add(
+          modulatorPhasor,
+          el.mul(cycleByPhasor(carrierPhasor), indexOfModulation)
+        ) //,
+        // 1
+        // )
       );
 
       const scaledSynth = el.mul(

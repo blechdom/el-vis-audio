@@ -2,54 +2,69 @@ import React, { useState, useCallback, useEffect } from "react";
 import { el, NodeRepr_t } from "@elemaudio/core";
 import { Meta, Story } from "@storybook/react";
 import styled from "styled-components";
-import { core, Button, Oscilloscope, PlayPauseAudio, Slider } from "../";
+import { core, Button, Oscilloscope, PlayPauseAudio, Slider } from "../.";
 require("events").EventEmitter.defaultMaxListeners = 0;
 
 const Demo = () => {
   const [playing, setPlaying] = useState(false);
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
-  const [steps, setSteps] = useState<number>(3);
-  const [modAmp, setModAmp] = useState<number>(1);
+  const [steps, setSteps] = useState<number>(1);
+  const [indexOfMod, setIndexOfMod] = useState<number>(1);
   const [carrierFreq, setCarrierFreq] = useState<number>(400);
   const [startFreq, setStartFreq] = useState<number>(1);
   const [freqDiv, setFreqDiv] = useState<number>(1);
-  const [ampDiv, setAmpDiv] = useState<number>(1);
+  const [indexDiv, setIndexDiv] = useState<number>(1);
   const [mainVolume, setMainVolume] = useState<number>(0);
 
-  const recursiveWave = useCallback(
-    (frequency: NodeRepr_t, amp: NodeRepr_t, count: number): NodeRepr_t => {
+  function cycleByPhasor(phasor: NodeRepr_t | number) {
+    return el.sin(el.mul(2 * Math.PI, phasor));
+  }
+
+  const recursiveModulatedCycle = useCallback(
+    (
+      signal: NodeRepr_t,
+      modFreq: number,
+      indexOfModulation: number,
+      count: number
+    ): NodeRepr_t => {
       const smoothFreqDiv: NodeRepr_t = el.sm(
         el.const({ key: `freqDiv`, value: 1 / freqDiv })
       );
-      const smoothAmpDiv: NodeRepr_t = el.sm(
-        el.const({ key: `ampDiv`, value: 1 / ampDiv })
+      const smoothIndexDiv: NodeRepr_t = el.sm(
+        el.const({ key: `indexDiv`, value: 1 / indexDiv })
       );
+
       return count > 0
-        ? (el.mul(
-            el.sin(
-              el.mul(
-                2 * Math.PI,
-                el.mod(
-                  el.add(
-                    el.phasor(frequency, 0),
-                    recursiveWave(
-                      el.mul(frequency, smoothFreqDiv) as NodeRepr_t,
-                      el.mul(amp, smoothAmpDiv) as NodeRepr_t,
-                      count - 1
-                    )
+        ? recursiveModulatedCycle(
+            cycleByPhasor(
+              el.mod(
+                el.add(
+                  el.phasor(
+                    el.sm(
+                      el.const({ key: `modFreq-${count}`, value: modFreq })
+                    ),
+                    0
                   ),
-                  1
-                )
+                  el.mul(
+                    signal,
+                    el.sm(
+                      el.const({
+                        key: `index-${count}`,
+                        value: indexOfModulation,
+                      })
+                    )
+                  )
+                ),
+                1
               )
-            ),
-            amp
-          ) as NodeRepr_t)
-        : (el.mul(
-            el.sin(el.mul(2 * Math.PI, el.phasor(frequency, 0))),
-            amp
-          ) as NodeRepr_t);
+            ) as NodeRepr_t,
+            modFreq / freqDiv,
+            indexOfModulation / indexDiv,
+            count - 1
+          )
+        : signal;
     },
-    [freqDiv, ampDiv]
+    [freqDiv, indexDiv]
   );
 
   useEffect(() => {
@@ -57,17 +72,25 @@ const Demo = () => {
       const smoothCarrierFreq: NodeRepr_t = el.sm(
         el.const({ key: `carrierFreq`, value: carrierFreq })
       );
-      const smoothFreq: NodeRepr_t = el.sm(
-        el.const({ key: `startFreq`, value: startFreq })
-      );
-      const smoothAmp: NodeRepr_t = el.sm(
-        el.const({ key: `modAmp`, value: modAmp })
-      );
 
-      const synth = el.sin(
-        el.mul(2 * Math.PI, el.phasor(smoothCarrierFreq, 0))
+      const carrier = cycleByPhasor(
+        el.phasor(smoothCarrierFreq, 0)
+      ) as NodeRepr_t;
+      //const modulatorPhasor = el.phasor(smoothModulationFreq, 0);
+
+      const synth = recursiveModulatedCycle(
+        carrier,
+        startFreq,
+        indexOfMod,
+        steps
       );
-      //const synth = recursiveWave(smoothFreq, smoothAmp, steps);
+      /*cycleByPhasor(
+        el.add(
+          el.phasor(smoothModulationFreq, 0),
+          el.mul(carrier, indexOfModulation)
+        )
+      );*/
+
       const scaledSynth = el.mul(
         synth,
         el.sm(el.const({ key: `main-amp`, value: mainVolume / 100 }))
@@ -75,7 +98,7 @@ const Demo = () => {
       core.render(el.scope({ name: "scope" }, scaledSynth), scaledSynth);
     }
   }, [
-    modAmp,
+    indexOfMod,
     steps,
     carrierFreq,
     startFreq,
@@ -83,7 +106,7 @@ const Demo = () => {
     core,
     playing,
     freqDiv,
-    ampDiv,
+    indexDiv,
   ]);
 
   function handleScopeData(data: Array<Array<number>>) {
@@ -100,7 +123,7 @@ const Demo = () => {
 
   return (
     <>
-      <h1>Recursive PM Synthesis v2</h1>
+      <h1>Recursive PM v2</h1>
       <PlayPauseAudio onPlay={setPlaying} />
       <Oscilloscope
         audioVizData={audioVizData}
@@ -130,15 +153,6 @@ const Demo = () => {
         onChange={(event) => setSteps(parseFloat(event.target.value))}
       />
       <h2>
-        modulation amplitude = <SliderLabel>{modAmp}</SliderLabel>
-      </h2>
-      <Slider
-        value={modAmp}
-        min={0.01}
-        max={2}
-        onChange={(event) => setModAmp(parseFloat(event.target.value))}
-      />
-      <h2>
         carrier frequency = <SliderLabel>{carrierFreq}</SliderLabel>
       </h2>
       <Slider
@@ -149,7 +163,7 @@ const Demo = () => {
         onChange={(event) => setCarrierFreq(parseFloat(event.target.value))}
       />
       <h2>
-        starting modulator frequency = <SliderLabel>{startFreq}</SliderLabel>
+        modulator frequency = <SliderLabel>{startFreq}</SliderLabel>
       </h2>
       <Slider
         value={startFreq}
@@ -159,24 +173,34 @@ const Demo = () => {
         onChange={(event) => setStartFreq(parseFloat(event.target.value))}
       />
       <h2>
-        frequency divisor = <SliderLabel>{freqDiv}</SliderLabel>
+        index of modulation = <SliderLabel>{indexOfMod}</SliderLabel>
+      </h2>
+      <Slider
+        value={indexOfMod}
+        step={0.01}
+        min={0}
+        max={20}
+        onChange={(event) => setIndexOfMod(parseFloat(event.target.value))}
+      />
+      <h2>
+        modulation freq divisor = <SliderLabel>{freqDiv}</SliderLabel>
       </h2>
       <Slider
         value={freqDiv}
         min={0.01}
         step={0.01}
-        max={20}
+        max={8}
         onChange={(event) => setFreqDiv(parseFloat(event.target.value))}
-      />{" "}
+      />
       <h2>
-        amplitude divisor = <SliderLabel>{ampDiv}</SliderLabel>
+        index of modulation divisor = <SliderLabel>{indexDiv}</SliderLabel>
       </h2>
       <Slider
-        value={ampDiv}
+        value={indexDiv}
         min={0.01}
         step={0.01}
-        max={2}
-        onChange={(event) => setAmpDiv(parseFloat(event.target.value))}
+        max={8}
+        onChange={(event) => setIndexDiv(parseFloat(event.target.value))}
       />
     </>
   );
