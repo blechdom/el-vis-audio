@@ -37,13 +37,13 @@ const Demo = () => {
       const modulatorPhasor = el.phasor(smoothModulationFreq, 0);
 
       const synth = cycleByPhasor(
-        //el.mod(
-        el.add(
-          modulatorPhasor,
-          el.mul(cycleByPhasor(carrierPhasor), indexOfModulation)
-        ) //,
-        // 1
-        // )
+        el.mod(
+          el.add(
+            modulatorPhasor,
+            el.mul(cycleByPhasor(carrierPhasor), indexOfModulation)
+          ),
+          1
+        )
       );
 
       const scaledSynth = el.mul(
