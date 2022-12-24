@@ -10,6 +10,7 @@ import {
   Slider,
   Presets,
   Spectrogram,
+  audioContext,
 } from "../.";
 require("events").EventEmitter.defaultMaxListeners = 0;
 
@@ -37,14 +38,7 @@ const Demo = () => {
       indexOfModulation: number,
       count: number
     ): NodeRepr_t => {
-      const smoothFreqDiv: NodeRepr_t = el.sm(
-        el.const({ key: `freqDiv-${count}`, value: 1 / freqDiv })
-      );
-      const smoothIndexDiv: NodeRepr_t = el.sm(
-        el.const({ key: `indexDiv-${count}`, value: 1 / indexDiv })
-      );
-
-      return count > 0
+      return count > 0 && modFreq < audioContext.sampleRate / 2
         ? recursiveModulatedCycle(
             cycleByPhasor(
               el.mod(
