@@ -3,10 +3,30 @@ import "./webaudio-controls/webaudio-controls-module";
 import { WACKnobProps } from "./WACKnob.types";
 
 export const WACKnob: FC<WACKnobProps> = (props: WACKnobProps) => {
+  const ref = React.useRef(null);
+
+  React.useLayoutEffect(() => {
+    const { current } = ref;
+    if (current !== undefined) {
+      // @ts-ignore
+      current?.addEventListener("input", (event: any) => {
+        props.onKnobInput && props?.onKnobInput(parseFloat(event.target.value));
+        props.onKnobEvent && props?.onKnobEvent(event);
+      });
+    }
+  }, [ref]);
+
   const threeColors = useMemo(() => {
     return `${props.indicatorColor};${props.bodyColor};${props.highlightColor};`;
   }, [props.highlightColor, props.bodyColor, props.indicatorColor]);
 
   // @ts-ignore
-  return <webaudio-knob colors={threeColors ?? ""} {...props} />;
+  return (
+    <webaudio-knob
+      id={props?.id ? props.id : "knob"}
+      ref={ref}
+      colors={threeColors ?? ""}
+      {...props}
+    />
+  );
 };

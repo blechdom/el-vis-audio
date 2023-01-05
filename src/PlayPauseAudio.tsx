@@ -1,22 +1,28 @@
-import React, { FC, useState } from "react";
-import { audioContext } from "./utils/audioContext";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { PlayPauseButton } from "./PlayPauseButton";
 import { PlayPauseAudioProps } from "./PlayPauseAudio.types";
+import { audioContext, core } from "./";
 
 export const PlayPauseAudio: FC<PlayPauseAudioProps> = ({
   playing = false,
+  signal,
   onPlay,
   ...props
 }: PlayPauseAudioProps) => {
   const [contextPlaying, setContextPlaying] = useState<boolean>(false);
 
-  const togglePlay = () => {
-    if (contextPlaying) {
-      audioContext.suspend();
+  useEffect(async () => {
+    console.log("contextPlaying", contextPlaying);
+    onPlay && onPlay(contextPlaying);
+    if (!contextPlaying) {
+      await audioContext.suspend();
     } else {
-      audioContext.resume();
+      await audioContext.resume();
+      signal && core && core.render(signal, signal);
     }
-    onPlay && onPlay(!contextPlaying);
+  }, [contextPlaying, signal, core]);
+
+  const togglePlay = () => {
     setContextPlaying((play) => !play);
   };
 

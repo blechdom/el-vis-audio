@@ -1,4 +1,10 @@
+import { ForwardedRef } from "react";
+
 export interface WACKnobProps {
+  ref?: any;
+  id?: string;
+  onKnobInput?: (value: number) => void;
+  onKnobEvent?: (event: any) => void;
   src?: string | null;
   value?: number;
   colors?: string;

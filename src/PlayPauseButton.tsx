@@ -7,7 +7,6 @@ export const PlayPauseButton: FC<PlayPauseButtonProps> = (props) => {
 };
 
 const StyledPlayPauseButton = styled.button<PlayPauseButtonProps>`
-  border: 0;
   background: transparent;
   box-sizing: border-box;
   width: 0;
@@ -20,7 +19,7 @@ const StyledPlayPauseButton = styled.button<PlayPauseButtonProps>`
 
   border-style: ${(props) => (props.playing ? "double" : "solid")};
   border-width: ${(props) =>
-    props.playing ? "0px 0 0px 60px" : "37px 0 37px 60px"};
+    props.playing ? `0px 0 0px 60px` : `37px 0 37px 60px`};
 
   &:hover {
     border-color: transparent transparent transparent

@@ -4,6 +4,7 @@ export * from "./Modal";
 export * from "./Oscilloscope";
 export * from "./PlayPauseAudio";
 export * from "./PlayPauseButton";
+export * from "./PlayMonoScopeAndGain";
 export * from "./Presets";
 export * from "./Slider";
 export * from "./Spectrogram";
