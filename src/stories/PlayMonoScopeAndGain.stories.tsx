@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { el, NodeRepr_t } from "@elemaudio/core";
 import { Meta, Story } from "@storybook/react";
 import { WebAudioKnob } from "webaudio-controls-react-typescript";
-import { core, PlayMonoScopeAndGain } from "../";
+import { core, KnobParamLabel, PlayMonoScopeAndGain } from "../";
 import styled from "styled-components";
+// @ts-ignore
+import SimpleFlat3 from "../../node_modules/webaudio-controls-react-typescript/dist/images/images/SimpleFlat3.png";
 require("events").EventEmitter.defaultMaxListeners = 0;
 
 type DemoProps = {
@@ -21,12 +23,10 @@ const Demo = (args: DemoProps) => {
     <>
       <PlayMonoScopeAndGain signal={sineSynth() as NodeRepr_t} />
       <br />
-      <h4>
-        freq (hz) = <SliderLabel>{frequency.toFixed(2)}</SliderLabel>
-      </h4>
-      <WebAudioKnob
-        src={"./images/SimpleFlat3.png"}
-        value={frequency}
+      <KnobParamLabel
+        id={"freq"}
+        label={"FREQ"}
+        knobValue={frequency}
         log={1}
         min={200}
         max={2000}
