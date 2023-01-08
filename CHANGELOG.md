@@ -1,3 +1,15 @@
+# v0.1.75 (Sun Jan 08 2023)
+
+#### ⚠️ Pushed to `main`
+
+- update webaudio-controls-react-typescript ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.74 (Thu Jan 05 2023)
 
 #### ⚠️ Pushed to `main`
