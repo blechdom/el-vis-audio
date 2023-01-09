@@ -1,3 +1,16 @@
+# v0.1.77 (Mon Jan 09 2023)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- update webaudio-controls and refactor shepard risset interface ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.76 (Sun Jan 08 2023)
 
 #### ⚠️ Pushed to `main`
