@@ -14538,10 +14538,10 @@ web-namespaces@^1.0.0:
   resolved "https://registry.npmjs.org/web-namespaces/-/web-namespaces-1.1.4.tgz"
   integrity sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==
 
-webaudio-controls-react-typescript@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/webaudio-controls-react-typescript/-/webaudio-controls-react-typescript-0.0.10.tgz#6e2e848c72f8f330e047911bc40779829f2d6d12"
-  integrity sha512-MB9uSK6PGevFAYTHwPP0juJ3msu459Y0/JPbCNnaZeZ7NhmKO4WzYSrMUtLYvNUbAfjsuT0VGjEA/o7cqvEcQQ==
+webaudio-controls-react-typescript@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/webaudio-controls-react-typescript/-/webaudio-controls-react-typescript-0.0.11.tgz#88883d751d2ec37d1d171f6dc8c575110e85b596"
+  integrity sha512-38eEO7alMwEy9wfIfzJ25QbO576F6Ls6lwA8oSL7mVTCBqJv20PrZMpDhboHDpE8ubtNYuRA485oHVS1lH4Isg==
   dependencies:
     react "^18.2.0"
     react-dom "^18.2.0"

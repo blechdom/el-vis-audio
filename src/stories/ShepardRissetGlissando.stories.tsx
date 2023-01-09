@@ -271,7 +271,7 @@ const SliderLabel = styled.span`
 `;
 
 const meta: Meta = {
-  title: "experiments/Shepard-Risset Glissando",
+  title: "experiments/archive/Shepard-Risset Glissando",
   component: Demo,
 };
 export default meta;

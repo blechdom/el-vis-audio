@@ -295,7 +295,7 @@ const SliderLabel = styled.span`
 `;
 
 const meta: Meta = {
-  title: "experiments/Recursive PM v2",
+  title: "experiments/archive/Recursive PM v2",
   component: Demo,
 };
 export default meta;

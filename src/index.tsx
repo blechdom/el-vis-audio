@@ -8,11 +8,12 @@ export * from "./PlayPauseCoreAudio";
 export * from "./PlayPauseButton";
 export * from "./PlayMonoScopeAndGain";
 export * from "./Presets";
+export * from "./RecursivePM";
+export * from "./ShepardRissetGlissando";
 export * from "./Slider";
 export * from "./Spectrogram";
 export * from "./Sphere";
 export * from "./Switch";
 export * from "./XYSpringBox";
-export * from "./RecursivePM";
 
 export * from "./utils";

@@ -10,6 +10,7 @@ import {
 require("events").EventEmitter.defaultMaxListeners = 0;
 
 type RecursivePMPreset = [number, number, number, number, number, number];
+
 export const RecursivePM: FC = () => {
   const [steps, setSteps] = useState<number>(1);
   const [indexOfMod, setIndexOfMod] = useState<number>(1);
@@ -106,7 +107,6 @@ export const RecursivePM: FC = () => {
   }
 
   function updateCurrentPreset(presetNumber: number) {
-    console.log("updateCurrentPreset", presetNumber);
     const preset = presetList[presetNumber];
     setSteps(preset[0]);
     setCarrierFreq(preset[1]);
@@ -188,7 +188,7 @@ export const RecursivePM: FC = () => {
         allowAdd
         allowEdit
         allowLocalStorage
-        presetsName="recursive-pm-v2"
+        presetsName="recursive-pm-v3"
         currentSetting={currentSetting}
         presetList={presetList}
         onUpdateCurrentPreset={updateCurrentPreset}

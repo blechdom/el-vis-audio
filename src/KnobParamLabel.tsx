@@ -35,10 +35,12 @@ export const KnobParamLabel: FC<KnobParamLabelProps> = ({
           <br />
           <WebAudioParam
             width={50}
+            link={id}
             height={20}
             fontsize={15}
             colors="#FFF;#FF0000;"
             value={knobValue}
+            onParamInput={onKnobInput && onKnobInput}
           />
           <br />
           <KnobLabel>{label}</KnobLabel>

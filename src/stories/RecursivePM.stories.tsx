@@ -148,7 +148,7 @@ const Presets = styled.div`
 `;
 
 const meta: Meta = {
-  title: "experiments/Recursive PM",
+  title: "experiments/archive/Recursive PM",
   component: Demo,
 };
 export default meta;
