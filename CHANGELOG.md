@@ -1,3 +1,15 @@
+# v0.1.76 (Sun Jan 08 2023)
+
+#### ⚠️ Pushed to `main`
+
+- remove reference to removed folder ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.75 (Sun Jan 08 2023)
 
 #### ⚠️ Pushed to `main`
