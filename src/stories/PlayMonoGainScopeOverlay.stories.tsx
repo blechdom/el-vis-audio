@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { el, NodeRepr_t } from "@elemaudio/core";
 import { Meta, Story } from "@storybook/react";
-import { core, KnobParamLabel, PlayMonoScopeAndGain } from "../";
+import { KnobParamLabel, PlayMonoGainScopeOverlay } from "../";
 import styled from "styled-components";
 
 type DemoProps = {
@@ -17,7 +17,7 @@ const Demo = (args: DemoProps) => {
 
   return (
     <>
-      <PlayMonoScopeAndGain signal={sineSynth() as NodeRepr_t} />
+      <PlayMonoGainScopeOverlay signal={sineSynth() as NodeRepr_t} />
       <br />
       <KnobParamLabel
         id={"freq"}
@@ -33,7 +33,7 @@ const Demo = (args: DemoProps) => {
 };
 
 const meta: Meta = {
-  title: "elementary/PlayMonoScopeAndGain",
+  title: "elementary/PlayMonoGainScopeOverlay",
   component: Demo,
 };
 

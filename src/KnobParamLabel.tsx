@@ -15,6 +15,7 @@ export const KnobParamLabel: FC<KnobParamLabelProps> = ({
   max = 1,
   step = 0.001,
   onKnobInput,
+  log = 0,
 }) => {
   return (
     <WebAudioKnobBlock key={key}>
@@ -27,6 +28,7 @@ export const KnobParamLabel: FC<KnobParamLabelProps> = ({
         min={min}
         step={step}
         max={max}
+        log={log}
         value={knobValue}
         onKnobInput={onKnobInput && onKnobInput}
       />
