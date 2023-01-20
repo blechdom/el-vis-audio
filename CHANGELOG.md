@@ -1,3 +1,16 @@
+# v0.1.78 (Fri Jan 20 2023)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- add delay ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.77 (Mon Jan 09 2023)
 
 #### ⚠️ Pushed to `main`
