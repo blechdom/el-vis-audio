@@ -9,11 +9,12 @@ import {
 } from "./.";
 require("events").EventEmitter.defaultMaxListeners = 0;
 
-type DelayPreset = [number, number];
+type DelayPreset = [number, number, number];
 
 export const Delay: FC = () => {
   const [freq, setFreq] = useState<number>(400);
   const [delayTime, setDelayTime] = useState<number>(1);
+  const [delayFeedback, setDelayFeedback] = useState<number>(0);
 
   const delaySynth = useCallback(() => {
     const smoothFreq: NodeRepr_t = el.sm(
@@ -22,28 +23,28 @@ export const Delay: FC = () => {
         value: freq,
       })
     );
-    return delayIt(el.cycle(smoothFreq));
-  }, [freq]);
+    const smoothDelay: NodeRepr_t = el.smooth(
+      el.tau2pole(0.75),
+      el.const({
+        key: `delay`,
+        value: delayTime,
+      })
+    );
+    const smoothFeedback: NodeRepr_t = el.sm(
+      el.const({
+        key: `feedback`,
+        value: delayFeedback,
+      })
+    );
+    return el.delay(
+      { size: audioContext.sampleRate * 4 },
+      el.ms2samps(smoothDelay),
+      smoothFeedback,
+      el.cycle(smoothFreq)
+    );
+  }, [freq, delayTime, delayFeedback]);
 
-  const delayIt = useCallback(
-    (sine: NodeRepr_t) => {
-      const smoothDelay: NodeRepr_t = el.sm(
-        el.const({
-          key: `delay`,
-          value: delayTime,
-        })
-      );
-      return el.delay(
-        { size: audioContext.sampleRate * 4 },
-        el.ms2samps(smoothDelay),
-        0,
-        sine
-      );
-    },
-    [delayTime]
-  );
-
-  const [presetList, setPresetList] = useState<DelayPreset[]>([[440, 1]]);
+  const [presetList, setPresetList] = useState<DelayPreset[]>([[440, 1, 0]]);
   const [currentSetting, setCurrentSetting] = useState<DelayPreset>(
     presetList[0]
   );
@@ -54,8 +55,8 @@ export const Delay: FC = () => {
   }, []);
 
   useMemo(() => {
-    setCurrentSetting([freq, delayTime]);
-  }, [freq, delayTime]);
+    setCurrentSetting([freq, delayTime, delayFeedback]);
+  }, [freq, delayTime, delayFeedback]);
 
   function updatePresetList(presetList: DelayPreset[]) {
     setPresetList(presetList);
@@ -89,10 +90,20 @@ export const Delay: FC = () => {
           id={"delayTime"}
           label={"delay"}
           knobValue={delayTime}
-          min={0}
-          step={1}
+          min={1}
+          step={0.1}
           max={3000}
           onKnobInput={setDelayTime}
+        />
+        <KnobParamLabel
+          key={"delayFeedback"}
+          id={"delayFeedback"}
+          label={"feedback"}
+          knobValue={delayFeedback}
+          min={-1}
+          step={0.001}
+          max={1}
+          onKnobInput={setDelayFeedback}
         />
       </KnobsFlexBox>
       <br />
