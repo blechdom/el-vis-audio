@@ -11,4 +11,5 @@ export interface PlayMonoScopeAndGainProps {
   spectrogram?: boolean;
   gain?: boolean;
   gainLabel?: boolean;
+  isPlaying?: (playing: boolean) => void;
 }

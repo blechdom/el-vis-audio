@@ -11,18 +11,24 @@ import {
 } from "./";
 
 export const PlayMonoScopeAndGain: FC<PlayMonoScopeAndGainProps> = ({
-  signal,
+  signal = null,
   backgroundColor = "#FF0000",
   width = 200,
   height = 80,
   oscilloscope = true,
   spectrogram = true,
   gain = true,
+  isPlaying,
 }) => {
   const [playing, setPlaying] = useState(false);
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
   const [fftVizData, setFftVizData] = useState<Array<number>>([]);
   const [mainVolume, setMainVolume] = useState<number>(0);
+
+  const updatePlaying = (play: boolean) => {
+    setPlaying(play);
+    isPlaying && isPlaying(play);
+  };
 
   const signalSynth = useCallback(() => {
     if (playing && signal) {
@@ -61,7 +67,7 @@ export const PlayMonoScopeAndGain: FC<PlayMonoScopeAndGainProps> = ({
   return (
     <PlayMonoScopeAndGainFlexBox>
       <PlayPauseCoreAudio
-        onPlay={setPlaying}
+        onPlay={updatePlaying}
         signalLeft={signalSynth() as NodeRepr_t}
         signalRight={signalSynth() as NodeRepr_t}
       />

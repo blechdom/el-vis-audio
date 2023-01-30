@@ -41,7 +41,9 @@ export const Presets: FC<PresetsProps> = ({
   }
 
   function deletePreset(index: number): void {
-    const updatedPresetList = presetList.filter((preset, i) => i !== index);
+    const updatedPresetList = presetList.filter(
+      (preset: [], i: number) => i !== index
+    );
     allowLocalStorage && saveToLocalStorage(JSON.stringify(updatedPresetList));
     onUpdatePresetList && onUpdatePresetList(updatedPresetList);
     setShowEditPresets(false);
@@ -49,7 +51,7 @@ export const Presets: FC<PresetsProps> = ({
   return (
     <>
       <PresetsContainer>
-        {presetList?.map((preset, i) => (
+        {presetList?.map((preset: [], i: number) => (
           <StyledButton
             key={`preset-${i}`}
             onClick={() => onUpdateCurrentPreset && onUpdateCurrentPreset(i)}
@@ -83,7 +85,7 @@ export const Presets: FC<PresetsProps> = ({
                 }
               >
                 <PresetsContainer>
-                  {presetList.map((preset, i) => (
+                  {presetList.map((preset: [], i: number) => (
                     <StyledButton
                       key={`preset-${i}`}
                       onClick={() => deletePreset(i)}

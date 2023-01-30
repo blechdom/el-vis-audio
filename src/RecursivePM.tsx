@@ -1,7 +1,9 @@
-import React, { FC, useState, useCallback, useEffect, useMemo } from "react";
+import React, { FC, useCallback, useEffect, useMemo } from "react";
 import { el, NodeRepr_t } from "@elemaudio/core";
 import styled from "styled-components";
+import useMemoizedState from "./hooks/useMemoizedState";
 import {
+  cycleByPhasor,
   KnobParamLabel,
   PlayMonoScopeAndGain,
   Presets,
@@ -9,82 +11,90 @@ import {
 } from "./.";
 require("events").EventEmitter.defaultMaxListeners = 0;
 
-type RecursivePMPreset = [number, number, number, number, number, number];
+type RecursivePMPreset = {
+  steps: number;
+  carrierFreq: number;
+  indexOfMod: number;
+  startModFreq: number;
+  freqDiv: number;
+  indexDiv: number;
+};
 
 export const RecursivePM: FC = () => {
-  const [steps, setSteps] = useState<number>(1);
-  const [indexOfMod, setIndexOfMod] = useState<number>(1);
-  const [carrierFreq, setCarrierFreq] = useState<number>(400);
-  const [startModFreq, setStartModFreq] = useState<number>(1);
-  const [freqDiv, setFreqDiv] = useState<number>(1);
-  const [indexDiv, setIndexDiv] = useState<number>(1);
+  const [playing, setPlaying] = useMemoizedState<boolean>(false);
+  const [steps, setSteps] = useMemoizedState<number>(1);
+  const [indexOfMod, setIndexOfMod] = useMemoizedState<number>(1);
+  const [carrierFreq, setCarrierFreq] = useMemoizedState<number>(400);
+  const [startModFreq, setStartModFreq] = useMemoizedState<number>(1);
+  const [freqDiv, setFreqDiv] = useMemoizedState<number>(1);
+  const [indexDiv, setIndexDiv] = useMemoizedState<number>(1);
+  const [presetList, setPresetList] =
+    useMemoizedState<RecursivePMPreset[]>(defaultPresets);
+  const [currentSetting, setCurrentSetting] =
+    useMemoizedState<RecursivePMPreset>(presetList[1]);
 
-  function cycleByPhasor(phasor: NodeRepr_t | number) {
-    return el.sin(el.mul(2 * Math.PI, phasor));
-  }
+  let lastSetting: RecursivePMPreset | {} = {};
 
-  const recursiveModulatedCycle = useCallback(
-    (
-      signal: NodeRepr_t,
-      modFreq: number,
-      indexOfModulation: number,
-      count: number
-    ): NodeRepr_t => {
-      return count > 0 && modFreq < audioContext.sampleRate / 2
-        ? recursiveModulatedCycle(
-            cycleByPhasor(
-              el.mod(
-                el.add(
-                  el.phasor(
-                    el.sm(
-                      el.const({ key: `modFreq-${count}`, value: modFreq })
-                    ),
-                    0
-                  ),
-                  el.mul(
-                    signal,
-                    el.sm(
-                      el.const({
-                        key: `index-${count}`,
-                        value: indexOfModulation,
-                      })
-                    )
-                  )
+  const recursiveModulatedCycle = (
+    signal: NodeRepr_t,
+    modFreq: number,
+    indexOfModulation: number,
+    count: number,
+    freqDiv: number,
+    indexDiv: number
+  ): NodeRepr_t => {
+    return count > 0 && modFreq < audioContext.sampleRate / 2
+      ? recursiveModulatedCycle(
+          cycleByPhasor(
+            el.mod(
+              el.add(
+                el.phasor(
+                  el.sm(el.const({ key: `modFreq-${count}`, value: modFreq })),
+                  0
                 ),
-                1
-              )
-            ) as NodeRepr_t,
-            modFreq / freqDiv,
-            indexOfModulation / indexDiv,
-            count - 1
-          )
-        : signal;
-    },
-    [freqDiv, indexDiv]
-  );
+                el.mul(
+                  signal,
+                  el.sm(
+                    el.const({
+                      key: `index-${count}`,
+                      value: indexOfModulation,
+                    })
+                  )
+                )
+              ),
+              1
+            )
+          ) as NodeRepr_t,
+          modFreq / freqDiv,
+          indexOfModulation / indexDiv,
+          count - 1,
+          freqDiv,
+          indexDiv
+        )
+      : signal;
+  };
 
   const recursivePMSynth = useCallback(() => {
-    const smoothCarrierFreq: NodeRepr_t = el.sm(
-      el.const({ key: `carrierFreq`, value: carrierFreq })
-    );
+    if (JSON.stringify(currentSetting) !== JSON.stringify(lastSetting)) {
+      lastSetting = currentSetting;
+      const smoothCarrierFreq: NodeRepr_t = el.sm(
+        el.const({ key: `carrierFreq`, value: currentSetting?.carrierFreq })
+      );
 
-    const carrier = cycleByPhasor(
-      el.phasor(smoothCarrierFreq, 0)
-    ) as NodeRepr_t;
+      const carrier = cycleByPhasor(
+        el.phasor(smoothCarrierFreq, 0)
+      ) as NodeRepr_t;
 
-    return recursiveModulatedCycle(carrier, startModFreq, indexOfMod, steps);
-  }, [indexOfMod, steps, carrierFreq, startModFreq, freqDiv, indexDiv]);
-
-  const [presetList, setPresetList] = useState<RecursivePMPreset[]>([
-    [3, 3, 22, 0.16, 1.4, 1.46],
-    [3, 7.29, 372.64, 4.98, 5.14, 6.25],
-    [4, 1.82, 10.94, 7.16, 4.29, 2.44],
-    [4, 182, 12, 3.14, 1.5, 2.67],
-    [10, 1173, 42, 2.34, 0.12, 0.86],
-  ]);
-  const [currentSetting, setCurrentSetting] = useState<RecursivePMPreset>(
-    presetList[0]
-  );
+      return recursiveModulatedCycle(
+        carrier,
+        currentSetting?.startModFreq,
+        currentSetting?.indexOfMod,
+        currentSetting?.steps,
+        currentSetting?.freqDiv,
+        currentSetting?.indexDiv
+      );
+    }
+  }, [currentSetting]);
 
   useEffect(() => {
     setCurrentSetting(presetList[0]);
@@ -92,14 +102,14 @@ export const RecursivePM: FC = () => {
   }, []);
 
   useMemo(() => {
-    setCurrentSetting([
+    setCurrentSetting({
       steps,
       carrierFreq,
       startModFreq,
       freqDiv,
       indexOfMod,
       indexDiv,
-    ]);
+    });
   }, [steps, carrierFreq, startModFreq, freqDiv, indexOfMod, indexDiv]);
 
   function updatePresetList(presetList: RecursivePMPreset[]) {
@@ -108,22 +118,24 @@ export const RecursivePM: FC = () => {
 
   function updateCurrentPreset(presetNumber: number) {
     const preset = presetList[presetNumber];
-    setSteps(preset[0]);
-    setCarrierFreq(preset[1]);
-    setStartModFreq(preset[2]);
-    setFreqDiv(preset[3]);
-    setIndexOfMod(preset[4]);
-    setIndexDiv(preset[5]);
+    setSteps(preset?.steps);
+    setCarrierFreq(preset?.carrierFreq);
+    setStartModFreq(preset?.startModFreq);
+    setFreqDiv(preset?.freqDiv);
+    setIndexOfMod(preset?.indexOfMod);
+    setIndexDiv(preset?.indexDiv);
   }
 
   return (
     <>
       <h1>Recursive Phase Modulation</h1>
-      <PlayMonoScopeAndGain signal={recursivePMSynth() as NodeRepr_t} />
+      <PlayMonoScopeAndGain
+        signal={playing ? (recursivePMSynth() as NodeRepr_t) : null}
+        isPlaying={setPlaying}
+      />
       <br />
       <KnobsFlexBox>
         <KnobParamLabel
-          key={"recursions"}
           id={"recursions"}
           label={"recursions"}
           knobValue={steps}
@@ -133,7 +145,6 @@ export const RecursivePM: FC = () => {
           onKnobInput={setSteps}
         />
         <KnobParamLabel
-          key={"carrierFreq"}
           id={"carrierFreq"}
           label={"carrierFreq"}
           knobValue={carrierFreq}
@@ -144,7 +155,6 @@ export const RecursivePM: FC = () => {
           onKnobInput={setCarrierFreq}
         />
         <KnobParamLabel
-          key={"startModFreq"}
           id={"modFreq"}
           label={"modFreq"}
           knobValue={startModFreq}
@@ -155,7 +165,6 @@ export const RecursivePM: FC = () => {
           onKnobInput={setStartModFreq}
         />
         <KnobParamLabel
-          key={"freqDiv"}
           id={"modDiv"}
           label={"modDiv"}
           knobValue={freqDiv}
@@ -165,7 +174,6 @@ export const RecursivePM: FC = () => {
           onKnobInput={setFreqDiv}
         />
         <KnobParamLabel
-          key={"indexOfMod"}
           id={"modIndex"}
           label={"index"}
           knobValue={indexOfMod}
@@ -175,7 +183,6 @@ export const RecursivePM: FC = () => {
           onKnobInput={setIndexOfMod}
         />
         <KnobParamLabel
-          key={"indexDiv"}
           id={"indexDiv"}
           label={"indexDiv"}
           knobValue={indexDiv}
@@ -190,7 +197,7 @@ export const RecursivePM: FC = () => {
         allowAdd
         allowEdit
         allowLocalStorage
-        presetsName="recursive-pm-v3"
+        presetsName="recursive-pm-v3-with-fix"
         currentSetting={currentSetting}
         presetList={presetList}
         onUpdateCurrentPreset={updateCurrentPreset}
@@ -208,3 +215,46 @@ const KnobsFlexBox = styled.div`
   padding: 10px;
   border: 2px solid #ff0000;
 `;
+
+const defaultPresets: RecursivePMPreset[] = [
+  {
+    steps: 3,
+    indexOfMod: 3,
+    carrierFreq: 22,
+    startModFreq: 0.16,
+    freqDiv: 1.4,
+    indexDiv: 1.46,
+  },
+  {
+    steps: 3,
+    carrierFreq: 7.29,
+    startModFreq: 372.64,
+    freqDiv: 4.98,
+    indexOfMod: 5.14,
+    indexDiv: 6.25,
+  },
+  {
+    steps: 4,
+    carrierFreq: 1.82,
+    startModFreq: 10.94,
+    freqDiv: 7.16,
+    indexOfMod: 4.29,
+    indexDiv: 2.44,
+  },
+  {
+    steps: 4,
+    carrierFreq: 182,
+    startModFreq: 12,
+    freqDiv: 3.14,
+    indexOfMod: 1.5,
+    indexDiv: 2.67,
+  },
+  {
+    steps: 4,
+    carrierFreq: 3,
+    startModFreq: 0.488,
+    freqDiv: 0.34,
+    indexOfMod: 7.18,
+    indexDiv: 5.26,
+  },
+];

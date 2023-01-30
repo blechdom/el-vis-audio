@@ -61,11 +61,11 @@ export const RecursivePMWithDelay2: FC = () => {
         })
       );
       return count > 0 && modFreq < audioContext.sampleRate / 2
-        ? (el.delay(
-            { size: audioContext.sampleRate * 4 * steps * 8 },
-            el.ms2samps(smoothDelay),
-            smoothFeedback,
-            recursiveModulatedCycle(
+        ? (recursiveModulatedCycle(
+            el.delay(
+              { size: audioContext.sampleRate * 4 * 12 * 8 },
+              el.ms2samps(smoothDelay),
+              smoothFeedback,
               cycleByPhasor(
                 el.mod(
                   el.add(
@@ -87,13 +87,13 @@ export const RecursivePMWithDelay2: FC = () => {
                   ),
                   1
                 )
-              ) as NodeRepr_t,
-              modFreq / freqDiv,
-              indexOfModulation / indexDiv,
-              count - 1,
-              delay / delayDiv,
-              feedback / feedbackDiv
-            )
+              )
+            ) as NodeRepr_t,
+            modFreq / freqDiv,
+            indexOfModulation / indexDiv,
+            count - 1,
+            delay / delayDiv,
+            feedback / feedbackDiv
           ) as NodeRepr_t)
         : signal;
     },

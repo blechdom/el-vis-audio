@@ -14,6 +14,7 @@ export * from "./Presets";
 export * from "./RecursivePM";
 export * from "./RecursivePMWithDelay";
 export * from "./RecursivePMWithDelay2";
+export * from "./RecursivePMWithDelay3";
 export * from "./ShepardRissetGlissando";
 export * from "./Slider";
 export * from "./Spectrogram";
