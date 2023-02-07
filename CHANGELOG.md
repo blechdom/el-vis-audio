@@ -1,3 +1,16 @@
+# v0.1.82 (Tue Feb 07 2023)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- update audio in and add hilbert transform pitch shifter ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.81 (Mon Jan 30 2023)
 
 #### ⚠️ Pushed to `main`
