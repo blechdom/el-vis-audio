@@ -75,7 +75,7 @@ export const AudioFile: FC<AudioFileProps> = ({ playing, onSignal }) => {
 
   return (
     <>
-      <Button onClick={handleClick} label={`Upload Files`} />
+      <Button onClick={handleClick} label={`Load File`} />
       <input
         type="file"
         hidden
@@ -84,8 +84,8 @@ export const AudioFile: FC<AudioFileProps> = ({ playing, onSignal }) => {
       />
 
       <KnobParamLabel
-        id={"frequency"}
-        label={"frequency"}
+        id={"playbackRate"}
+        label={"playbackRate"}
         knobValue={frequency}
         step={0.001}
         min={0.001}
