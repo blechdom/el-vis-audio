@@ -1,3 +1,4 @@
+export * from "./AudioFile";
 export * from "./AudioIn";
 export * from "./Button";
 export * from "./Delay";

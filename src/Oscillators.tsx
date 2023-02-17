@@ -23,10 +23,7 @@ const options: OptionType[] = [
 ];
 
 export const Oscillators: FC<OscillatorsProps> = ({ playing, onSignal }) => {
-  const [waveform, setWaveform] = useState<OptionType>({
-    value: "cycle",
-    label: "cycle",
-  });
+  const [waveform, setWaveform] = useState<OptionType>(options[3]);
   const [frequency, setFrequency] = useState<number>(200);
 
   useEffect(() => {
@@ -65,12 +62,7 @@ export const Oscillators: FC<OscillatorsProps> = ({ playing, onSignal }) => {
         options={options}
         value={waveform}
         onChange={(option) => {
-          setWaveform(
-            option ?? {
-              value: "cycle",
-              label: "cycle",
-            }
-          );
+          setWaveform((option ?? options[3]) as OptionType);
         }}
       />
       <KnobParamLabel

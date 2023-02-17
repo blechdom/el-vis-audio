@@ -76,7 +76,11 @@ export const HilbertTransform: FC = () => {
         isPlaying={setPlaying}
       />
       <br />
-      <AudioIn playing={playing} onSignal={setAudioInSignal} />
+      <AudioIn
+        playing={playing}
+        onSignal={setAudioInSignal}
+        startingSignal={`audioFile`}
+      />
       <br />
       <KnobsFlexBox>
         <KnobParamLabel
@@ -84,8 +88,8 @@ export const HilbertTransform: FC = () => {
           label={"freqShift"}
           knobValue={freqShift}
           step={0.001}
-          min={-100}
-          max={100}
+          min={-500}
+          max={500}
           onKnobInput={setFreqShift}
         />
       </KnobsFlexBox>

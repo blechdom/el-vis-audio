@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Oscillators, Noise } from "./";
+import { AudioFile, Noise, Oscillators } from "./";
 import { AudioInProps } from "./AudioIn.types";
 import styled from "styled-components";
 import Select from "react-select";
@@ -17,11 +17,14 @@ const options: OptionType[] = [
   { value: "audioFile", label: "audio file" },
 ];
 
-export const AudioIn: FC<AudioInProps> = ({ playing, onSignal }) => {
-  const [input, setInput] = useState<OptionType>({
-    value: "oscillators",
-    label: "oscillators",
-  });
+export const AudioIn: FC<AudioInProps> = ({
+  playing,
+  onSignal,
+  startingSignal = "oscillators",
+}) => {
+  const [input, setInput] = useState<OptionType>(
+    options[options?.findIndex((o: OptionType) => o?.value === startingSignal)]
+  );
 
   return (
     <AudioInFlexBox>
@@ -29,12 +32,7 @@ export const AudioIn: FC<AudioInProps> = ({ playing, onSignal }) => {
         options={options}
         value={input}
         onChange={(option) => {
-          setInput(
-            option ?? {
-              value: "oscillators",
-              label: "oscillators",
-            }
-          );
+          setInput((option ?? options[1]) as OptionType);
         }}
       />
       <br />
@@ -43,6 +41,9 @@ export const AudioIn: FC<AudioInProps> = ({ playing, onSignal }) => {
       )}
       {input.value === "noise" && (
         <Noise playing={playing} onSignal={onSignal} />
+      )}
+      {input.value === "audioFile" && (
+        <AudioFile playing={playing} onSignal={onSignal} />
       )}
     </AudioInFlexBox>
   );
