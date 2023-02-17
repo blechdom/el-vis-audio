@@ -6,6 +6,7 @@ export * from "./Gestures";
 export * from "./HilbertTransform";
 export * from "./JuliaSynth";
 export * from "./KnobParamLabel";
+export * from "./LiveInput";
 export * from "./Modal";
 export * from "./Noise";
 export * from "./Oscillators";

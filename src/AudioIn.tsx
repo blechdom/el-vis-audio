@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { AudioFile, Noise, Oscillators } from "./";
+import { AudioFile, LiveInput, Noise, Oscillators } from "./";
 import { AudioInProps } from "./AudioIn.types";
 import styled from "styled-components";
 import Select from "react-select";
@@ -36,6 +36,9 @@ export const AudioIn: FC<AudioInProps> = ({
         }}
       />
       <br />
+      {input.value === "liveInput" && (
+        <LiveInput playing={playing} onSignal={onSignal} />
+      )}
       {input.value === "oscillators" && (
         <Oscillators playing={playing} onSignal={onSignal} />
       )}
