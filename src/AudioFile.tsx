@@ -7,7 +7,6 @@ require("events").EventEmitter.defaultMaxListeners = 0;
 export const AudioFile: FC<AudioFileProps> = ({ playing, onSignal }) => {
   const hiddenFileInput = React.useRef(null);
   const [url, setUrl] = useState<string>("");
-  const [blob, setBlob] = useState<Blob | undefined>(undefined);
   const [sampleLength, setSampleLength] = useState<number>(0);
   const [sampleRate, setSampleRate] = useState<number>(audioContext.sampleRate);
   const [frequency, setFrequency] = useState<number>(1);
@@ -18,7 +17,6 @@ export const AudioFile: FC<AudioFileProps> = ({ playing, onSignal }) => {
   fileReader.onloadend = async () => {
     const arrayBuffer = fileReader.result as ArrayBuffer;
     const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-    console.log(audioBuffer);
     setSampleRate(audioBuffer.sampleRate);
     setSampleLength(audioBuffer.getChannelData(0).length);
     core.updateVirtualFileSystem({
@@ -28,24 +26,15 @@ export const AudioFile: FC<AudioFileProps> = ({ playing, onSignal }) => {
   };
 
   useEffect(() => {
-    console.log("url", url);
     if (url && url.length > 0) {
-      console.log("url", url);
       async function fetchBlob(url: string) {
         const response = await fetch(url);
         const blob = await response.blob();
-        setBlob(blob as Blob);
+        fileReader.readAsArrayBuffer(blob as Blob);
       }
       fetchBlob(url);
     }
   }, [url]);
-
-  useEffect(() => {
-    if (blob) {
-      console.log("blob", blob);
-      fileReader.readAsArrayBuffer(blob as Blob);
-    }
-  }, [blob]);
 
   useEffect(() => {
     if (playing && playable && onSignal) {
@@ -63,9 +52,16 @@ export const AudioFile: FC<AudioFileProps> = ({ playing, onSignal }) => {
     //@ts-ignore
     hiddenFileInput?.current?.click();
   };
+  function reset() {
+    core.updateVirtualFileSystem({});
+    setUrl("");
+    setPlayable(false);
+    setSampleLength(0);
+    setSampleRate(audioContext.sampleRate);
+  }
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("event file", event?.target?.files?.[0]);
+    reset();
     const file = event?.target?.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
