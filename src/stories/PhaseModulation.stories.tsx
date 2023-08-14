@@ -8,7 +8,6 @@ require("events").EventEmitter.defaultMaxListeners = 0;
 const Demo = () => {
   const [playing, setPlaying] = useState(false);
   const [audioVizData, setAudioVizData] = useState<Array<number>>([]);
-  const [steps, setSteps] = useState<number>(3);
   const [indexOfMod, setIndexOfMod] = useState<number>(1);
   const [carrierFreq, setCarrierFreq] = useState<number>(400);
   const [startFreq, setStartFreq] = useState<number>(1);
@@ -54,7 +53,6 @@ const Demo = () => {
     }
   }, [
     indexOfMod,
-    steps,
     carrierFreq,
     startFreq,
     mainVolume,

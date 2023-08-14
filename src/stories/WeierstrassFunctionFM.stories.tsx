@@ -3,7 +3,6 @@ import { el, NodeRepr_t } from "@elemaudio/core";
 import { Meta, Story } from "@storybook/react";
 import styled from "styled-components";
 import {
-  audioContext,
   core,
   Oscilloscope,
   Spectrogram,

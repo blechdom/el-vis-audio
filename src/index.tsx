@@ -28,5 +28,6 @@ export * from "./Spectrogram";
 export * from "./Sphere";
 export * from "./Switch";
 export * from "./XYSpringBox";
+export * from "./WeierstrassFunctionPM";
 
 export * from "./utils";
