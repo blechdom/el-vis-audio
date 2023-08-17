@@ -6,6 +6,7 @@ export interface KnobParamLabelProps {
   hoverColor?: string;
   width?: number;
   height?: number;
+  diameter?: number;
   textHeight?: number;
   knobValue?: number;
   label?: string;

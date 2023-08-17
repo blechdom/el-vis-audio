@@ -11,6 +11,7 @@ export const KnobParamLabel: FC<KnobParamLabelProps> = ({
   key = "key",
   label,
   knobValue = 0,
+  diameter = 50,
   min = 0,
   max = 1,
   step = 0.001,
@@ -21,7 +22,7 @@ export const KnobParamLabel: FC<KnobParamLabelProps> = ({
     <WebAudioKnobBlock key={key}>
       <WebAudioKnob
         id={id}
-        diameter={50}
+        diameter={diameter}
         bodyColor={"#FFF"}
         highlightColor={"#FFF"}
         indicatorColor={"#FF0000"}
@@ -36,7 +37,7 @@ export const KnobParamLabel: FC<KnobParamLabelProps> = ({
         <>
           <br />
           <WebAudioParam
-            width={50}
+            width={diameter}
             link={id}
             height={20}
             fontsize={15}
