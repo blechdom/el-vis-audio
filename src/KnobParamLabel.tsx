@@ -12,6 +12,9 @@ export const KnobParamLabel: FC<KnobParamLabelProps> = ({
   label,
   knobValue = 0,
   diameter = 50,
+  labelWidth = 50,
+  fontSize = 15,
+  tooltip = "",
   min = 0,
   max = 1,
   step = 0.001,
@@ -26,6 +29,7 @@ export const KnobParamLabel: FC<KnobParamLabelProps> = ({
         bodyColor={"#FFF"}
         highlightColor={"#FFF"}
         indicatorColor={"#FF0000"}
+        tooltip={"test"}
         min={min}
         step={step}
         max={max}
@@ -37,28 +41,36 @@ export const KnobParamLabel: FC<KnobParamLabelProps> = ({
         <>
           <br />
           <WebAudioParam
-            width={diameter}
+            width={labelWidth}
             link={id}
-            height={20}
-            fontsize={15}
+            height={fontSize + 4}
+            fontsize={fontSize}
             colors="#FFF;#FF0000;"
             value={knobValue}
             onParamInput={onKnobInput && onKnobInput}
           />
           <br />
-          <KnobLabel>{label}</KnobLabel>
+          <KnobLabel labelWidth={labelWidth} fontSize={fontSize}>
+            {label}
+          </KnobLabel>
         </>
       )}
     </WebAudioKnobBlock>
   );
 };
 
-const KnobLabel = styled.span`
+const KnobLabel = styled.div<{
+  fontSize?: number;
+  labelWidth?: number;
+}>`
   color: #ff0000;
   text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-size: ${(props) => (props.fontSize ? props.fontSize : 15)}px;
   padding: 0px;
   margin: 0px;
-  width: 150px;
+  width: ${(props) => (props.labelWidth ? props.labelWidth + 4 : 55)}px;
+  height: ${(props) => (props.fontSize ? props.fontSize : 19)}px;
 `;
 
 const WebAudioKnobBlock = styled.div`

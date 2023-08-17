@@ -7,6 +7,9 @@ export interface KnobParamLabelProps {
   width?: number;
   height?: number;
   diameter?: number;
+  labelWidth?: number;
+  fontSize?: number;
+  tooltip?: string;
   textHeight?: number;
   knobValue?: number;
   label?: string;
