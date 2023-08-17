@@ -1,3 +1,16 @@
+# v0.1.89 (Thu Aug 17 2023)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- fix tooltip ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.88 (Thu Aug 17 2023)
 
 #### ⚠️ Pushed to `main`
