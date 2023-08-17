@@ -1,3 +1,15 @@
+# v0.1.87 (Mon Aug 14 2023)
+
+#### ⚠️ Pushed to `main`
+
+- update elementary audio 2.1.0 ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.86 (Fri Feb 17 2023)
 
 #### ⚠️ Pushed to `main`
