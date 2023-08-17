@@ -1,3 +1,16 @@
+# v0.1.88 (Thu Aug 17 2023)
+
+#### ⚠️ Pushed to `main`
+
+- Merge branch 'main' of github.com:blechdom/el-vis-audio ([@blechdom](https://github.com/blechdom))
+- added diameter to the props of knob param label ([@blechdom](https://github.com/blechdom))
+
+#### Authors: 1
+
+- Kristin Galvin ([@blechdom](https://github.com/blechdom))
+
+---
+
 # v0.1.87 (Mon Aug 14 2023)
 
 #### ⚠️ Pushed to `main`
